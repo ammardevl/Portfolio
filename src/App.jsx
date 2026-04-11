@@ -26,60 +26,59 @@ const App = () => {
     return () => window.removeEventListener("hashchange", handleHashChange);
   }, []);
 
-  // Content protection
-  // useEffect(() => {
-  //   const handleContextMenu = (e) => {
-  //     e.preventDefault();
-  //     return false;
-  //   };
+  useEffect(() => {
+    const handleContextMenu = (e) => {
+      e.preventDefault();
+      return false;
+    };
 
-  //   const handleCopy = (e) => {
-  //     e.preventDefault();
-  //     return false;
-  //   };
+    const handleCopy = (e) => {
+      e.preventDefault();
+      return false;
+    };
 
-  //   const handleKeyDown = (e) => {
-  //     if (
-  //       e.keyCode === 123 ||
-  //       (e.ctrlKey && e.shiftKey && e.keyCode === 73) ||
-  //       (e.ctrlKey && e.shiftKey && e.keyCode === 74) ||
-  //       (e.ctrlKey && e.keyCode === 85) ||
-  //       (e.ctrlKey && e.keyCode === 83) ||
-  //       (e.ctrlKey && e.shiftKey && e.keyCode === 67)
-  //     ) {
-  //       e.preventDefault();
-  //       return false;
-  //     }
-  //   };
+    const handleKeyDown = (e) => {
+      if (
+        e.keyCode === 123 ||
+        (e.ctrlKey && e.shiftKey && e.keyCode === 73) ||
+        (e.ctrlKey && e.shiftKey && e.keyCode === 74) ||
+        (e.ctrlKey && e.keyCode === 85) ||
+        (e.ctrlKey && e.keyCode === 83) ||
+        (e.ctrlKey && e.shiftKey && e.keyCode === 67)
+      ) {
+        e.preventDefault();
+        return false;
+      }
+    };
 
-  //   const handleSelectStart = (e) => {
-  //     if (e.target.tagName === "IMG") {
-  //       e.preventDefault();
-  //       return false;
-  //     }
-  //   };
+    const handleSelectStart = (e) => {
+      if (e.target.tagName === "IMG") {
+        e.preventDefault();
+        return false;
+      }
+    };
 
-  //   const handleDragStart = (e) => {
-  //     if (e.target.tagName === "IMG") {
-  //       e.preventDefault();
-  //       return false;
-  //     }
-  //   };
+    const handleDragStart = (e) => {
+      if (e.target.tagName === "IMG") {
+        e.preventDefault();
+        return false;
+      }
+    };
 
-  //   document.addEventListener("contextmenu", handleContextMenu);
-  //   document.addEventListener("copy", handleCopy);
-  //   document.addEventListener("keydown", handleKeyDown);
-  //   document.addEventListener("selectstart", handleSelectStart);
-  //   document.addEventListener("dragstart", handleDragStart);
+    document.addEventListener("contextmenu", handleContextMenu);
+    document.addEventListener("copy", handleCopy);
+    document.addEventListener("keydown", handleKeyDown);
+    document.addEventListener("selectstart", handleSelectStart);
+    document.addEventListener("dragstart", handleDragStart);
 
-  //   return () => {
-  //     document.removeEventListener("contextmenu", handleContextMenu);
-  //     document.removeEventListener("copy", handleCopy);
-  //     document.removeEventListener("keydown", handleKeyDown);
-  //     document.removeEventListener("selectstart", handleSelectStart);
-  //     document.removeEventListener("dragstart", handleDragStart);
-  //   };
-  // }, []);
+    return () => {
+      document.removeEventListener("contextmenu", handleContextMenu);
+      document.removeEventListener("copy", handleCopy);
+      document.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("selectstart", handleSelectStart);
+      document.removeEventListener("dragstart", handleDragStart);
+    };
+  }, []);
 
   const toggleMobileMenu = () => setMobileMenuOpen(!mobileMenuOpen);
   const closeMobileMenu = () => setMobileMenuOpen(false);

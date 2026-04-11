@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 
-// Social links data
 const socialLinks = [
   {
     href: "https://www.linkedin.com/in/muhammad-ammar-1a701130b/",
@@ -63,7 +62,7 @@ const contactMethods = [
 // Social link component
 const SocialLink = ({ link }) => (
   <a
-    className={`w-14 h-14 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center transition-all duration-300 hover:text-white hover:scale-110 hover:shadow-lg ${link.color}`}
+    className={`w-14 h-14 rounded-full bg-gray-100 flex items-center justify-center transition-all duration-300 hover:text-white hover:scale-110 hover:shadow-lg ${link.color}`}
     href={link.href}
     target="_blank"
     rel="noopener noreferrer"
@@ -89,7 +88,7 @@ const InputField = ({
     <div>
       <label
         htmlFor={inputId}
-        className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+        className="block text-sm font-medium text-gray-700 mb-2"
       >
         {label}
         {required && <span className="text-red-500 ml-1">*</span>}
@@ -101,7 +100,7 @@ const InputField = ({
           placeholder={placeholder}
           value={value}
           onChange={onChange}
-          className="w-full p-4 border border-gray-300 dark:border-gray-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-white transition-all duration-300 resize-none"
+          className="w-full p-4 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent bg-white text-gray-900 transition-all duration-300 resize-none"
         />
       ) : (
         <input
@@ -110,7 +109,7 @@ const InputField = ({
           placeholder={placeholder}
           value={value}
           onChange={onChange}
-          className="w-full p-4 border border-gray-300 dark:border-gray-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-white transition-all duration-300"
+          className="w-full p-4 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent bg-white text-gray-900 transition-all duration-300"
         />
       )}
     </div>
@@ -156,20 +155,20 @@ const Contact = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white">
       <section className="py-20 lg:py-32">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-8">
           <div className="text-center mb-16">
             <div className="mb-6">
-              <span className="inline-flex items-center gap-2 bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 px-4 py-2 rounded-full text-sm font-medium">
+              <span className="inline-flex items-center gap-2 bg-orange-100  text-orange-600  px-4 py-2 rounded-full text-sm font-medium">
                 <i className="ri-message-3-line"></i>
                 Let's Connect
               </span>
             </div>
-            <h1 className="text-5xl lg:text-7xl font-light mb-6 text-gray-900 dark:text-white tracking-tight">
+            <h1 className="text-5xl lg:text-7xl font-light mb-6 text-gray-900 tracking-tight">
               Get In <span className="text-orange-500">Touch</span>
             </h1>
-            <p className="text-lg lg:text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
               Have a project in mind or just want to say hello? I'd love to hear
               from you. Let's create something amazing together.
             </p>
@@ -177,10 +176,10 @@ const Contact = () => {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             <div>
-              <h2 className="text-3xl font-light mb-6 text-gray-900 dark:text-white">
+              <h2 className="text-3xl font-light mb-6 text-gray-900">
                 Let's Talk About Your Project
               </h2>
-              <p className="text-lg text-gray-600 dark:text-gray-400 mb-8 leading-relaxed">
+              <p className="text-lg text-gray-600 mb-8 leading-relaxed">
                 I'm always excited to work on new projects and collaborate with
                 amazing people. Whether you have a question or just want to say
                 hi, feel free to reach out!
@@ -189,28 +188,26 @@ const Contact = () => {
               <div className="space-y-6 mb-8">
                 {contactMethods.map((method, index) => (
                   <div key={index} className="flex items-start gap-4 group">
-                    <div className="w-12 h-12 bg-orange-100 dark:bg-orange-900/30 rounded-full flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                    <div className="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
                       <i
                         className={`${method.icon} text-orange-500 text-xl`}
                       ></i>
                     </div>
                     <div className="flex-1">
-                      <div className="font-medium text-gray-900 dark:text-white mb-1">
+                      <div className="font-medium text-gray-900 ">
                         {method.title}
                       </div>
                       {method.link ? (
                         <a
                           href={method.link}
-                          className="text-gray-600 dark:text-gray-400 hover:text-orange-500 dark:hover:text-orange-400 transition-colors duration-300 block"
+                          className="text-gray-600 hover:text-orange-500 transition-colors duration-300 block"
                         >
                           {method.value}
                         </a>
                       ) : (
-                        <div className="text-gray-600 dark:text-gray-400">
-                          {method.value}
-                        </div>
+                        <div className="text-gray-600">{method.value}</div>
                       )}
-                      <p className="text-sm text-gray-500 dark:text-gray-500 mt-1">
+                      <p className="text-sm text-gray-500 mt-1">
                         {method.description}
                       </p>
                     </div>
@@ -219,7 +216,7 @@ const Contact = () => {
               </div>
 
               <div>
-                <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
+                <h3 className="text-lg font-medium text-gray-900 mb-4">
                   Connect With Me
                 </h3>
                 <div className="flex gap-4">
@@ -239,19 +236,19 @@ const Contact = () => {
               </div>
             </div>
 
-            <div className="bg-white dark:bg-gray-800 p-8 lg:p-10 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700">
-              <h3 className="text-2xl font-medium mb-6 text-gray-900 dark:text-white">
+            <div className="bg-white p-8 lg:p-10 rounded-2xl shadow-2xl border border-gray-200">
+              <h3 className="text-2xl font-medium mb-6 text-gray-900">
                 Send Me a Message
               </h3>
 
               {submitStatus === "success" && (
-                <div className="mb-6 p-4 bg-green-100 dark:bg-green-900/30 border border-green-500 rounded-xl flex items-center gap-3">
+                <div className="mb-6 p-4 bg-green-100 border border-green-500 rounded-xl flex items-center gap-3">
                   <i className="ri-checkbox-circle-line text-green-500 text-2xl"></i>
                   <div>
-                    <p className="text-green-700 dark:text-green-400 font-medium">
+                    <p className="text-green-700 font-medium">
                       Message sent successfully!
                     </p>
-                    <p className="text-green-600 dark:text-green-500 text-sm">
+                    <p className="text-green-600 text-sm">
                       I'll get back to you soon.
                     </p>
                   </div>
@@ -259,10 +256,10 @@ const Contact = () => {
               )}
 
               {submitStatus === "error" && (
-                <div className="mb-6 p-4 bg-red-100 dark:bg-red-900/30 border border-red-500 rounded-xl flex items-center gap-3">
+                <div className="mb-6 p-4 bg-red-100 border border-red-500 rounded-xl flex items-center gap-3">
                   <i className="ri-error-warning-line text-red-500 text-2xl"></i>
                   <div>
-                    <p className="text-red-700 dark:text-red-400 font-medium">
+                    <p className="text-red-700 font-medium">
                       Please fill all required fields!
                     </p>
                   </div>
@@ -323,7 +320,7 @@ const Contact = () => {
                 </button>
               </div>
 
-              <p className="mt-6 text-sm text-gray-500 dark:text-gray-400 text-center">
+              <p className="mt-6 text-sm text-gray-500 text-center">
                 By submitting, you agree to be contacted via email.
               </p>
             </div>
@@ -331,14 +328,14 @@ const Contact = () => {
         </div>
       </section>
 
-      <section className="py-24 lg:py-32 bg-white dark:bg-gray-900">
+      <section className="py-24 lg:py-32 bg-white">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-6xl font-light mb-4 text-gray-900 dark:text-white tracking-tight">
+            <h2 className="text-4xl lg:text-6xl font-light mb-4 text-gray-900 tracking-tight">
               Frequently Asked{" "}
               <span className="text-orange-500">Questions</span>
             </h2>
-            <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
               Quick answers to common questions
             </p>
           </div>
@@ -378,17 +375,17 @@ const Contact = () => {
             ].map((faq, index) => (
               <div
                 key={index}
-                className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-200 dark:border-gray-700 hover:border-orange-500 dark:hover:border-orange-500 transition-all duration-300"
+                className="bg-white rounded-2xl p-6 shadow-lg border border-gray-200  hover:border-orange-500  transition-all duration-300"
               >
                 <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center flex-shrink-0">
+                  <div className="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center flex-shrink-0">
                     <i className="ri-question-line text-orange-500"></i>
                   </div>
                   <div>
-                    <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
+                    <h3 className="text-lg font-medium text-gray-900 mb-2">
                       {faq.question}
                     </h3>
-                    <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
+                    <p className="text-gray-600  leading-relaxed">
                       {faq.answer}
                     </p>
                   </div>

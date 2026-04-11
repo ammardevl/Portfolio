@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import iconWeb from "../assets/icon-web.jpeg";
 
 const navigationLinks = [
   { href: "#home", label: "Home" },
@@ -40,21 +41,16 @@ const Header = ({
       >
         <div className="max-w-[1400px] mx-auto px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
-            {/* Logo */}
             <a
               href="#home"
-              className="flex items-center gap-3 group"
+              className="flex items-center gap-2 group"
               onClick={closeMobileMenu}
             >
-              <div className="w-10 h-10 bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                <span className="text-white font-bold text-lg">A</span>
-              </div>
-              <span className="text-xl font-medium text-gray-900">
+              <span className="text-3xl font-medium text-gray-900 font-chewy">
                 Muhammad Ammar
               </span>
             </a>
 
-            {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center gap-1">
               {navigationLinks.map((link, index) => (
                 <a

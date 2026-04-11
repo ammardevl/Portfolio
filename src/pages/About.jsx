@@ -12,9 +12,9 @@ const skillsData = [
     category: "Frontend Development",
     icon: "ri-code-s-slash-line",
     skills: [
-      { name: "HTML5 & CSS3", level: 95 },
-      { name: "JavaScript ES6+", level: 90 },
-      { name: "React.js", level: 70 },
+      { name: "HTML5 & CSS3", level: 100 },
+      { name: "JavaScript ES6+", level: 91 },
+      { name: "React.js", level: 75 },
       { name: "Tailwind CSS", level: 92 },
       { name: "Responsive Design", level: 99 },
     ],
@@ -23,22 +23,22 @@ const skillsData = [
     category: "WordPress Development",
     icon: "ri-wordpress-line",
     skills: [
-      { name: "Website Maintenance", level: 90 },
+      { name: "Website Maintenance", level: 100 },
       { name: "Plugin Customization", level: 85 },
-      { name: "Elementor & Divi", level: 95 },
-      { name: "WooCommerce", level: 80 },
-      { name: "WordPress Optimization", level: 92 },
+      { name: "Elementor & Divi", level: 99 },
+      { name: "WooCommerce", level: 83 },
+      { name: "WordPress Optimization", level: 97 },
     ],
   },
   {
     category: "Tools & Technologies",
     icon: "ri-tools-line",
     skills: [
-      { name: "Git & GitHub", level: 85 },
-      { name: "SEO Optimization", level: 90 },
-      { name: "Performance Optimization", level: 92 },
+      { name: "Git & GitHub", level: 95 },
+      { name: "SEO Optimization", level: 92 },
+      { name: "Performance Optimization", level: 97 },
       { name: "API Integration", level: 85 },
-      { name: "Database Management", level: 75 },
+      { name: "Database Management", level: 79 },
     ],
   },
 ];
@@ -73,12 +73,10 @@ const timelineData = [
 const SkillBar = ({ skill }) => (
   <div className="mb-6">
     <div className="flex justify-between mb-2">
-      <span className="text-gray-700 dark:text-gray-300 font-medium">
-        {skill.name}
-      </span>
+      <span className="text-gray-700  font-medium">{skill.name}</span>
       <span className="text-orange-500 font-medium">{skill.level}%</span>
     </div>
-    <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+    <div className="h-3 bg-gray-200  rounded-full overflow-hidden">
       <div
         className="h-full bg-gradient-to-r from-orange-500 to-orange-600 rounded-full transition-all duration-1000 ease-out"
         style={{ width: `${skill.level}%` }}
@@ -89,7 +87,7 @@ const SkillBar = ({ skill }) => (
 
 const TimelineItem = ({ item, index }) => (
   <div className="relative flex gap-6 pb-12 last:pb-0">
-    <div className="absolute left-[27px] top-12 bottom-0 w-0.5 bg-gray-300 dark:bg-gray-700"></div>
+    <div className="absolute left-[27px] top-12 bottom-0 w-0.5 bg-gray-300 "></div>
 
     <div className="relative z-10 flex-shrink-0">
       <div className="w-14 h-14 rounded-full bg-gradient-to-r from-orange-500 to-orange-600 flex items-center justify-center shadow-lg">
@@ -98,23 +96,19 @@ const TimelineItem = ({ item, index }) => (
     </div>
 
     <div className="flex-1 pt-2">
-      <span className="inline-block px-3 py-1 bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 rounded-full text-sm font-medium mb-3">
+      <span className="inline-block px-3 py-1 bg-orange-100  text-orange-600  rounded-full text-sm font-medium mb-3">
         {item.year}
       </span>
-      <h3 className="text-xl font-medium text-gray-900 dark:text-white mb-1">
-        {item.title}
-      </h3>
+      <h3 className="text-xl font-medium text-gray-900 mb-1">{item.title}</h3>
       <p className="text-orange-500 font-medium mb-3">{item.company}</p>
-      <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
-        {item.description}
-      </p>
+      <p className="text-gray-600  leading-relaxed">{item.description}</p>
     </div>
   </div>
 );
 
 const About = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white">
       <section className="py-20 lg:py-32">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-20">
@@ -131,21 +125,21 @@ const About = () => {
 
             <div className="order-1 lg:order-2">
               <div className="mb-6">
-                <span className="inline-flex items-center gap-2 bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 px-4 py-2 rounded-full text-sm font-medium">
+                <span className="inline-flex items-center gap-2 bg-orange-100 text-orange-600 px-4 py-2 rounded-full text-sm font-medium">
                   <i className="ri-user-line"></i>
                   Get to Know Me
                 </span>
               </div>
-              <h1 className="text-4xl lg:text-6xl font-light mb-6 text-gray-900 dark:text-white tracking-tight">
+              <h1 className="text-4xl lg:text-6xl font-light mb-6 text-gray-900 tracking-tight">
                 About <span className="text-orange-500">Me</span>
               </h1>
-              <p className="text-lg text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
+              <p className="text-lg text-gray-600 mb-6 leading-relaxed">
                 I'm Muhammad Ammar, a Frontend Developer with over 3 years of
                 experience crafting exceptional websites. My journey began with
                 WordPress and has evolved into mastering modern web
                 technologies.
               </p>
-              <p className="text-lg text-gray-600 dark:text-gray-400 mb-8 leading-relaxed">
+              <p className="text-lg text-gray-600 mb-8 leading-relaxed">
                 I specialize in creating Responsive, SEO Optimized and Fast
                 Loading websites that not only look good but also deliver
                 outstanding performance and User Experience.
@@ -155,7 +149,7 @@ const About = () => {
                 {aboutStats.map((stat, index) => (
                   <div
                     key={index}
-                    className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700"
+                    className="bg-white rounded-xl p-6 shadow-lg border border-gray-200 text-center"
                   >
                     <i
                       className={`${stat.icon} text-3xl text-orange-500 mb-3`}
@@ -163,9 +157,7 @@ const About = () => {
                     <div className="text-3xl font-light text-orange-500 mb-1">
                       {stat.number}
                     </div>
-                    <div className="text-gray-600 dark:text-gray-400 text-sm">
-                      {stat.label}
-                    </div>
+                    <div className="text-gray-600 text-sm">{stat.label}</div>
                   </div>
                 ))}
               </div>
@@ -182,13 +174,13 @@ const About = () => {
         </div>
       </section>
 
-      <section className="py-24 lg:py-32 bg-white dark:bg-gray-900">
+      <section className="py-24 lg:py-32 bg-white">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-6xl font-light mb-4 text-gray-900 dark:text-white tracking-tight">
+            <h2 className="text-4xl lg:text-6xl font-light mb-4 text-gray-900 tracking-tight">
               My <span className="text-orange-500">Skills</span>
             </h2>
-            <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
               Technical expertise and proficiency levels
             </p>
           </div>
@@ -197,13 +189,13 @@ const About = () => {
             {skillsData.map((category, index) => (
               <div
                 key={index}
-                className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg border border-gray-200 dark:border-gray-700"
+                className="bg-white rounded-2xl p-8 shadow-lg border border-gray-200"
               >
                 <div className="flex items-center gap-3 mb-6">
                   <div className="w-12 h-12 rounded-xl bg-gradient-to-r from-orange-500 to-orange-600 flex items-center justify-center">
                     <i className={`${category.icon} text-white text-xl`}></i>
                   </div>
-                  <h3 className="text-xl font-medium text-gray-900 dark:text-white">
+                  <h3 className="text-xl font-medium text-gray-900">
                     {category.category}
                   </h3>
                 </div>
@@ -216,13 +208,13 @@ const About = () => {
         </div>
       </section>
 
-      <section className="py-24 lg:py-32 bg-gray-50 dark:bg-gray-800">
+      <section className="py-24 lg:py-32 bg-gray-50">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-6xl font-light mb-4 text-gray-900 dark:text-white tracking-tight">
+            <h2 className="text-4xl lg:text-6xl font-light mb-4 text-gray-900 tracking-tight">
               My <span className="text-orange-500">Journey</span>
             </h2>
-            <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
               Professional experience and career milestones
             </p>
           </div>
@@ -235,13 +227,13 @@ const About = () => {
         </div>
       </section>
 
-      <section className="py-24 lg:py-32 bg-white dark:bg-gray-900">
+      <section className="py-24 lg:py-32 bg-white">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-6xl font-light mb-4 text-gray-900 dark:text-white tracking-tight">
+            <h2 className="text-4xl lg:text-6xl font-light mb-4 text-gray-900 tracking-tight">
               Core <span className="text-orange-500">Values</span>
             </h2>
-            <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
               Principles that guide my work and approach
             </p>
           </div>
@@ -275,15 +267,15 @@ const About = () => {
             ].map((value, index) => (
               <div
                 key={index}
-                className="bg-white dark:bg-gray-800 rounded-2xl p-8 text-center shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 dark:border-gray-700 hover:border-orange-500 dark:hover:border-orange-500"
+                className="bg-white rounded-2xl p-8 text-center shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200  hover:border-orange-500"
               >
                 <div className="w-16 h-16 mx-auto mb-4 rounded-xl bg-gradient-to-r from-orange-500 to-orange-600 flex items-center justify-center">
                   <i className={`${value.icon} text-white text-3xl`}></i>
                 </div>
-                <h3 className="text-xl font-medium mb-3 text-gray-900 dark:text-white">
+                <h3 className="text-xl font-medium mb-3 text-gray-900 ">
                   {value.title}
                 </h3>
-                <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
+                <p className="text-gray-600 leading-relaxed">
                   {value.description}
                 </p>
               </div>

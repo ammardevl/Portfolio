@@ -383,37 +383,6 @@ const Projects = () => {
               />
             ))}
           </div>
-
-          <div className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              {
-                number: "35+",
-                label: "Projects Completed",
-                icon: "ri-folder-check-line",
-              },
-              {
-                number: "15+",
-                label: "Happy Clients",
-                icon: "ri-user-smile-line",
-              },
-              {
-                number: "3+",
-                label: "Years Experience",
-                icon: "ri-award-line",
-              },
-            ].map((stat, index) => (
-              <div
-                key={index}
-                className="bg-white rounded-2xl p-8 text-center shadow-lg border border-gray-200"
-              >
-                <i className={`${stat.icon} text-5xl text-orange-500 mb-4`}></i>
-                <div className="text-4xl font-light text-orange-500 mb-2">
-                  {stat.number}
-                </div>
-                <div className="text-gray-600">{stat.label}</div>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 

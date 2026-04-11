@@ -50,41 +50,13 @@ const Footer = () => {
     <footer className="bg-white border-t border-gray-200">
       <div className="py-16 lg:py-20">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <div className="mb-6">
-              <span className="inline-flex items-center gap-2 bg-orange-100 text-orange-600 px-4 py-2 rounded-full text-sm font-medium">
-                <span className="w-2 h-2 bg-orange-500 rounded-full animate-pulse"></span>
-                Let's Work Together
-              </span>
-            </div>
-            <h2 className="text-4xl lg:text-6xl font-light mb-6 text-gray-900 tracking-tight">
-              Have a Project in Mind?
-            </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-8 leading-relaxed">
-              Ready to bring your vision to life? Let's discuss how we can
-              create something amazing together.
-            </p>
-            <a
-              href="#contact"
-              className="inline-flex items-center gap-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white px-8 py-4 rounded-full font-medium transition-all duration-300 hover:shadow-lg hover:scale-105"
-            >
-              Start a Conversation
-              <i className="ri-arrow-right-line"></i>
-            </a>
-          </div>
-
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-12 mb-12">
             <div className="lg:col-span-2">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-12 h-12 bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl flex items-center justify-center">
-                  <span className="text-white font-bold text-xl">A</span>
-                </div>
-                <span className="text-2xl font-medium text-gray-900">
-                  Muhammad Ammar
-                </span>
-              </div>
+              <span className="text-4xl font-chewy font-medium text-gray-900 mb-5 inline-block">
+                Muhammad Ammar
+              </span>
               <p className="text-gray-600 mb-6 leading-relaxed max-w-md">
-                Frontend Developer cabable of creating and handling websites
+                Frontend Developer capable of creating and handling websites
                 built with various tools like CMS or Code.
               </p>
               <div className="flex gap-4">
@@ -99,7 +71,6 @@ const Footer = () => {
               </div>
             </div>
 
-            {/* Quick Links */}
             <div>
               <h3 className="text-lg font-medium text-gray-900 mb-6">
                 Quick Links
@@ -118,7 +89,6 @@ const Footer = () => {
               </ul>
             </div>
 
-            {/* Contact Info */}
             <div>
               <h3 className="text-lg font-medium text-gray-900 mb-6">
                 Get in Touch

@@ -150,18 +150,6 @@ const Footer = () => {
               &copy; {currentYear} Muhammad Ammar. All rights reserved.
             </p>
             <div className="flex items-center flex-wrap justify-center gap-6 text-sm text-gray-600">
-              <a
-                href="#"
-                className="hover:text-orange-500 transition-colors duration-300"
-              >
-                Privacy Policy
-              </a>
-              <a
-                href="#"
-                className="hover:text-orange-500 transition-colors duration-300"
-              >
-                Terms of Service
-              </a>
               <span className="flex items-center gap-2">
                 Crafted with
                 <i className="ri-heart-fill text-orange-500 animate-pulse"></i>

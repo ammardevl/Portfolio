@@ -89,7 +89,7 @@ const TechStackItem = ({ tech }) => (
 const Home = () => {
   return (
     <div>
-      <section className="h-full flex items-center bg-gradient-to-br from-gray-50 to-white pt-25 pb-20">
+      <section className="h-full flex items-center bg-gradient-to-br from-gray-50 to-white py-15 lg:pt-25 lg:pb-20 ">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-8 w-full">
           <div className="flex flex-col">
             <div className="mb-6">
@@ -99,12 +99,12 @@ const Home = () => {
               </span>
             </div>
 
-            <h1 className="text-5xl lg:text-8xl w-[80%] font-light mb-6 text-gray-900 tracking-tight leading-tight">
+            <h1 className="text-5xl lg:text-8xl md:w-[80%] font-light mb-6 text-gray-900 tracking-tight leading-tight">
               Frontend <span className="text-orange-500">Dev</span> Who Thinks
               Like a <span className="text-orange-500">Designer.</span>
             </h1>
 
-            <p className="text-lg w-[50dvw] lg:text-xl text-gray-600 mb-8 leading-relaxed">
+            <p className="text-lg max-md:w-[100%] w-[70dvw] lg:text-xl text-gray-600 mb-8 leading-relaxed">
               I'm Muhammad Ammar, Experienced Frontend developer capable of
               creating Responsive, SEO Optimized and Fast Digital experiences
               through modern Web technologies and innovative design solutions.

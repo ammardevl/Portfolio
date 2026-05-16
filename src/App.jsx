@@ -4,20 +4,32 @@ import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Services from "./pages/Services";
 import Projects from "./pages/Projects";
+import ProjectDetail from "./pages/ProjectDetail";
 import Contact from "./pages/Contact";
 import About from "./pages/About";
+import { allProjects } from "./data/projects";
 
 const App = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState("home");
+  const [projectSlug, setProjectSlug] = useState(null);
+
+  const parseHash = (hash) => {
+    const clean = hash.replace("#", "") || "home";
+    const project = allProjects.find((p) => p.slug === clean);
+    if (project) return { page: "project-detail", slug: clean };
+    return { page: clean, slug: null };
+  };
 
   useEffect(() => {
-    const hash = window.location.hash.replace("#", "") || "home";
-    setCurrentPage(hash);
+    const { page, slug } = parseHash(window.location.hash);
+    setCurrentPage(page);
+    setProjectSlug(slug);
 
     const handleHashChange = () => {
-      const newHash = window.location.hash.replace("#", "") || "home";
-      setCurrentPage(newHash);
+      const { page: newPage, slug: newSlug } = parseHash(window.location.hash);
+      setCurrentPage(newPage);
+      setProjectSlug(newSlug);
       window.scrollTo({ top: 0, behavior: "smooth" });
       setMobileMenuOpen(false);
     };
@@ -93,6 +105,8 @@ const App = () => {
         return <About />;
       case "contact":
         return <Contact />;
+      case "project-detail":
+        return <ProjectDetail slug={projectSlug} />;
       default:
         return <Home />;
     }

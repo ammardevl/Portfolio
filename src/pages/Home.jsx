@@ -1,34 +1,6 @@
 import { useState, useEffect } from "react";
-import medicare from "../assets/medicare.png";
-import vslpackaging from "../assets/vsl-packaging website.webp";
-import grothico from "../assets/web-grothico.webp";
-
-const featuredProjects = [
-  {
-    title: "Medicare Healthcare Website",
-    description:
-      "Animated Website with lots of Animations, Scroll Animations and Transitions with(GSAP).",
-    image: medicare,
-    link: "https://web3-medicare.netlify.app/",
-    technologies: ["React", "Tailwind CSS", "GSAP", "JavaScript"],
-  },
-  {
-    title: "Grothico Agency Website",
-    description:
-      "Simple Dark Themed Responsive, Fast, SEO Optimized website for a Services Agency.",
-    image: grothico,
-    link: "https://web6-grothico.netlify.app/",
-    technologies: ["React", "CSS3", "EmailJS", "JavaScript"],
-  },
-  {
-    title: "VSL Packaging Company",
-    description:
-      "Complete company website built with a modern layout, responsive design, and clean functionality.",
-    image: vslpackaging,
-    link: "https://www.vslpackaging.com/",
-    technologies: ["WordPress", "Divi", "CSS3", "Chatbot Integration"],
-  },
-];
+import { featuredProjects } from "../data/projects";
+import { getImage } from "../data/imageMap";
 
 const techStack = [
   { name: "HTML5", icon: "ri-html5-line" },
@@ -38,44 +10,55 @@ const techStack = [
   { name: "WordPress", icon: "ri-wordpress-fill" },
 ];
 
-const ProjectCard = ({ project }) => (
-  <div className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-gray-200">
-    <div className="relative overflow-hidden h-64">
-      <img
-        src={project.image}
-        alt={project.title}
-        className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-110"
-      />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-      <a
-        href={project.link}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="absolute top-4 right-4 w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-orange-500 hover:text-white"
-      >
-        <i className="ri-external-link-line text-lg"></i>
-      </a>
-    </div>
-    <div className="p-6">
-      <h3 className="text-xl font-medium mb-3 text-gray-900">
-        {project.title}
-      </h3>
-      <p className="text-gray-600 mb-6 leading-relaxed">
-        {project.description}
-      </p>
-      <div className="flex flex-wrap gap-2">
-        {project.technologies.map((tech, index) => (
-          <span
-            key={index}
-            className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm"
-          >
-            {tech}
-          </span>
-        ))}
+const ProjectCard = ({ project }) => {
+  const imageSrc = getImage(project.imageKey);
+
+  return (
+    <a
+      href={`#${project.slug}`}
+      className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-gray-200"
+      style={{ textDecoration: "none", color: "inherit", display: "block" }}
+    >
+      <div className="relative overflow-hidden h-64">
+        {imageSrc ? (
+          <img
+            src={imageSrc}
+            alt={project.title}
+            loading="lazy"
+            className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-110"
+          />
+        ) : (
+          <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 flex flex-col items-center justify-center gap-2 text-gray-400">
+            <i className="ri-image-line text-4xl"></i>
+            <span className="text-sm">Image coming soon</span>
+          </div>
+        )}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+        <div className="absolute top-4 right-4 w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-orange-500 hover:text-white">
+          <i className="ri-external-link-line text-lg"></i>
+        </div>
       </div>
-    </div>
-  </div>
-);
+      <div className="p-6">
+        <h3 className="text-xl font-medium mb-3 text-gray-900">
+          {project.title}
+        </h3>
+        <p className="text-gray-600 mb-6 leading-relaxed">
+          {project.shortDescription}
+        </p>
+        <div className="flex flex-wrap gap-2">
+          {project.technologies.map((tech, index) => (
+            <span
+              key={index}
+              className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm"
+            >
+              {tech}
+            </span>
+          ))}
+        </div>
+      </div>
+    </a>
+  );
+};
 
 const TechStackItem = ({ tech }) => (
   <div className="group bg-white rounded-2xl p-6 text-center shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200">
@@ -185,14 +168,8 @@ const Home = () => {
 
       <style jsx>{`
         @keyframes blink {
-          0%,
-          50% {
-            opacity: 1;
-          }
-          51%,
-          100% {
-            opacity: 0;
-          }
+          0%, 50% { opacity: 1; }
+          51%, 100% { opacity: 0; }
         }
         .animate-blink {
           animation: blink 1s infinite;

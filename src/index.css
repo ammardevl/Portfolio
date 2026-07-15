@@ -1,11 +1,41 @@
 @import "tailwindcss";
-@import url("https://fonts.googleapis.com/css2?family=Chewy&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Sora:wght@400;500;600;700&family=Fira+Code:wght@400;500;600&display=swap");
+
+/* Palette 2 — cream / yellow / coral / red / ink.
+   Chosen for the strongest light/dark contrast and the most energy
+   without tipping into the same flat-orange look the old site had. */
+@theme {
+  --color-ink: #191919;
+  --color-cream: #f1e8b8;
+  --color-yellow: #f9e784;
+  --color-coral: #e58f65;
+  --color-red: #d05353;
+
+  /* Derived neutrals — tints/shades of the palette, used for surfaces,
+     borders, and body text so pure white/gray never sneaks back in. */
+  --color-surface: #fffdf7;
+  --color-muted: #6b6558;
+  --color-border-soft: #e7dfc4;
+
+  --font-display: "Sora", sans-serif;
+  --font-body: "Manrope", sans-serif;
+  --font-mono: "Fira Code", monospace;
+}
 
 html {
   scroll-behavior: smooth;
-  font-family: "Manrope", sans-serif !important;
+  font-family: var(--font-body);
 }
 
-.font-chewy {
-  font-family: "Chewy", cursive !important;
+body {
+  background-color: #ffffff;
+  color: var(--color-ink);
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-mono {
+  font-family: var(--font-mono);
 }

@@ -1,77 +1,65 @@
 import { useMemo } from "react";
-import { allProjects } from "../data/projects";
+import { allProjects, categoryAccent } from "../data/projects";
 import { getImage } from "../data/imageMap";
+import { Button, TechChip } from "../components/ui";
 
 const SimilarProjectCard = ({ project }) => {
   const imageSrc = getImage(project.imageKey);
   return (
     <a
       href={`#${project.slug}`}
-      className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-gray-200 hover:border-orange-500"
-      style={{ textDecoration: "none", color: "inherit", display: "block" }}
+      className="group bg-surface rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 border border-border-soft hover:border-red block"
     >
-      <div className="relative overflow-hidden h-48">
+      <div className="relative overflow-hidden h-44">
         {imageSrc ? (
           <img
             src={imageSrc}
             alt={project.title}
             loading="lazy"
-            className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-110"
+            className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
           />
         ) : (
-          <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 flex flex-col items-center justify-center gap-2 text-gray-400">
+          <div className="w-full h-full bg-cream flex flex-col items-center justify-center gap-2 text-ink/40">
             <i className="ri-image-line text-3xl"></i>
             <span className="text-sm">Image coming soon</span>
           </div>
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-        <div className="absolute top-3 right-3">
-          <span className="px-3 py-1 bg-orange-500 text-white rounded-full text-xs font-medium">
-            {project.category}
-          </span>
-        </div>
+        <span
+          className={`absolute top-3 right-3 px-3 py-1 rounded-full text-xs font-mono font-medium ${categoryAccent[project.category]}`}
+        >
+          {project.category}
+        </span>
       </div>
       <div className="p-5">
-        <h4 className="text-lg font-medium mb-2 text-gray-900 group-hover:text-orange-500 transition-colors duration-300">
+        <h4 className="text-lg font-display font-medium mb-2 text-ink group-hover:text-red transition-colors duration-300">
           {project.title}
         </h4>
-        <p className="text-gray-600 text-sm leading-relaxed" style={{ display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}>
-          {project.shortDescription}
-        </p>
+        <p className="text-muted text-sm leading-relaxed line-clamp-2">{project.shortDescription}</p>
       </div>
     </a>
   );
 };
 
 const ProjectDetail = ({ slug }) => {
-  const project = useMemo(
-    () => allProjects.find((p) => p.slug === slug),
-    [slug]
-  );
+  const project = useMemo(() => allProjects.find((p) => p.slug === slug), [slug]);
 
   const similarProjects = useMemo(
     () =>
       project
-        ? allProjects
-            .filter((p) => p.category === project.category && p.id !== project.id)
-            .slice(0, 3)
+        ? allProjects.filter((p) => p.category === project.category && p.id !== project.id).slice(0, 3)
         : [],
     [project]
   );
 
   if (!project) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white flex items-center justify-center">
+      <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
-          <i className="ri-error-warning-line text-6xl text-orange-500 mb-4" style={{ display: "block" }}></i>
-          <h2 className="text-2xl font-medium text-gray-900 mb-4">Project not found</h2>
-          <a
-            href="#projects"
-            className="inline-flex items-center gap-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white px-8 py-4 rounded-full font-medium transition-all duration-300 hover:shadow-lg hover:scale-105"
-          >
-            <i className="ri-arrow-left-line"></i>
+          <i className="ri-error-warning-line text-6xl text-red mb-4 block"></i>
+          <h2 className="text-2xl font-display font-medium text-ink mb-6">Project not found</h2>
+          <Button href="#projects" icon="ri-arrow-left-line">
             Back to Projects
-          </a>
+          </Button>
         </div>
       </div>
     );
@@ -80,220 +68,164 @@ const ProjectDetail = ({ slug }) => {
   const imageSrc = getImage(project.imageKey);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white">
-
-      {/* Hero */}
-      <section className="py-16 lg:py-24 bg-white border-b border-gray-200">
+    <div className="min-h-screen bg-white">
+      <section className="py-16 lg:py-24 bg-surface border-b border-border-soft">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-8">
-
-          {/* Breadcrumb */}
-          <div className="flex items-center gap-2 text-sm text-gray-500 mb-8">
-            <a href="#home" className="hover:text-orange-500 transition-colors duration-300">Home</a>
-            <i className="ri-arrow-right-s-line"></i>
-            <a href="#projects" className="hover:text-orange-500 transition-colors duration-300">Projects</a>
-            <i className="ri-arrow-right-s-line"></i>
-            <span className="text-orange-500">{project.title}</span>
+          <div className="flex items-center gap-2 text-sm text-muted mb-8 font-mono">
+            <a href="#home" className="hover:text-red transition-colors duration-300">home</a>
+            <span>/</span>
+            <a href="#projects" className="hover:text-red transition-colors duration-300">projects</a>
+            <span>/</span>
+            <span className="text-red">{project.slug}</span>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-              <div className="mb-4">
-                <span className="inline-flex items-center gap-2 bg-orange-100 text-orange-600 px-4 py-2 rounded-full text-sm font-medium">
-                  <i className="ri-folder-line"></i>
-                  {project.category}
-                </span>
-              </div>
-              <h1 className="text-4xl lg:text-6xl font-light mb-6 text-gray-900 tracking-tight leading-tight">
+              <span
+                className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-mono font-medium mb-4 ${categoryAccent[project.category]}`}
+              >
+                <i className="ri-folder-line"></i>
+                {project.category}
+              </span>
+              <h1 className="text-4xl lg:text-6xl font-display font-medium mb-6 text-ink tracking-tight leading-tight">
                 {project.title}
               </h1>
-              <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-                {project.shortDescription}
-              </p>
+              <p className="text-lg text-muted mb-8 leading-relaxed">{project.shortDescription}</p>
 
-              {/* Tech badges */}
               <div className="flex flex-wrap gap-2 mb-8">
-                {project.technologies.map((tech, idx) => (
-                  <span key={idx} className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg text-sm font-medium">
-                    {tech}
-                  </span>
+                {project.technologies.map((tech) => (
+                  <TechChip key={tech}>{tech}</TechChip>
                 ))}
               </div>
 
-              {/* Live link */}
               <div className="flex flex-wrap gap-4">
                 {project.link && project.link !== "#" ? (
-                  <a
-                    href={project.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white px-8 py-4 rounded-full font-medium transition-all duration-300 hover:shadow-lg hover:scale-105"
-                  >
-                    <i className="ri-external-link-line"></i>
+                  <Button href={project.link} external icon="ri-external-link-line">
                     Visit Live Website
-                  </a>
+                  </Button>
                 ) : (
-                  <span className="inline-flex items-center gap-3 border border-gray-300 text-gray-400 px-8 py-4 rounded-full font-medium cursor-not-allowed">
+                  <span className="inline-flex items-center gap-3 border border-border-soft text-ink/40 px-7 py-3.5 rounded-full font-medium cursor-not-allowed">
                     <i className="ri-time-line"></i>
                     Live Link Coming Soon
                   </span>
                 )}
-                <a
-                  href="#projects"
-                  className="inline-flex items-center gap-3 border border-gray-300 text-gray-700 px-8 py-4 rounded-full font-medium transition-all duration-300 hover:border-orange-500 hover:text-orange-500"
-                >
-                  <i className="ri-arrow-left-line"></i>
+                <Button href="#projects" variant="ghost" icon="ri-arrow-left-line">
                   All Projects
-                </a>
+                </Button>
               </div>
             </div>
 
-            {/* Cover image */}
             <div className="relative">
-              <div className="rounded-2xl overflow-hidden shadow-2xl" style={{ height: "400px" }}>
+              <div className="rounded-2xl overflow-hidden shadow-xl h-[400px]">
                 {imageSrc ? (
-                  <img
-                    src={imageSrc}
-                    alt={project.title}
-                    className="w-full h-full object-cover object-top"
-                  />
+                  <img src={imageSrc} alt={project.title} className="w-full h-full object-cover object-top" />
                 ) : (
-                  <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 flex flex-col items-center justify-center gap-3 text-gray-400">
+                  <div className="w-full h-full bg-cream flex flex-col items-center justify-center gap-3 text-ink/40">
                     <i className="ri-image-line text-6xl"></i>
                     <span>Image coming soon</span>
                   </div>
                 )}
               </div>
-              <div className="absolute -bottom-4 -right-4 w-full h-full bg-gradient-to-r from-orange-500 to-orange-600 rounded-2xl opacity-10 -z-10"></div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Project Details */}
       <section className="py-20 lg:py-28">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-
-            {/* Main content */}
             <div className="lg:col-span-2 space-y-12">
-
-              {/* About */}
               <div>
-                <h2 className="text-3xl font-light mb-6 text-gray-900 flex items-center gap-3">
-                  <span className="w-1 h-8 bg-gradient-to-b from-orange-500 to-orange-600 rounded-full inline-block"></span>
+                <h2 className="text-3xl font-display font-medium mb-6 text-ink flex items-center gap-3">
+                  <span className="w-1 h-8 bg-red rounded-full inline-block"></span>
                   About This Project
                 </h2>
-                <p className="text-gray-600 leading-relaxed text-lg">{project.description}</p>
+                <p className="text-muted leading-relaxed text-lg">{project.description}</p>
               </div>
 
-              {/* Challenge */}
               {project.challenge && (
                 <div>
-                  <h2 className="text-3xl font-light mb-6 text-gray-900 flex items-center gap-3">
-                    <span className="w-1 h-8 bg-gradient-to-b from-orange-500 to-orange-600 rounded-full inline-block"></span>
+                  <h2 className="text-3xl font-display font-medium mb-6 text-ink flex items-center gap-3">
+                    <span className="w-1 h-8 bg-red rounded-full inline-block"></span>
                     The Challenge
                   </h2>
-                  <div className="bg-orange-50 border border-orange-200 rounded-2xl p-6">
-                    <p className="text-orange-900 leading-relaxed">{project.challenge}</p>
+                  <div className="bg-cream/50 border border-border-soft rounded-2xl p-6">
+                    <p className="text-ink/80 leading-relaxed">{project.challenge}</p>
                   </div>
                 </div>
               )}
 
-              {/* Outcome */}
               {project.outcome && (
                 <div>
-                  <h2 className="text-3xl font-light mb-6 text-gray-900 flex items-center gap-3">
-                    <span className="w-1 h-8 bg-gradient-to-b from-orange-500 to-orange-600 rounded-full inline-block"></span>
+                  <h2 className="text-3xl font-display font-medium mb-6 text-ink flex items-center gap-3">
+                    <span className="w-1 h-8 bg-red rounded-full inline-block"></span>
                     The Outcome
                   </h2>
-                  <div className="bg-green-50 border border-green-200 rounded-2xl p-6">
-                    <p className="text-green-900 leading-relaxed">{project.outcome}</p>
+                  <div className="bg-ink rounded-2xl p-6">
+                    <p className="text-cream leading-relaxed">{project.outcome}</p>
                   </div>
                 </div>
               )}
 
-              {/* Key Features */}
               <div>
-                <h2 className="text-3xl font-light mb-6 text-gray-900 flex items-center gap-3">
-                  <span className="w-1 h-8 bg-gradient-to-b from-orange-500 to-orange-600 rounded-full inline-block"></span>
+                <h2 className="text-3xl font-display font-medium mb-6 text-ink flex items-center gap-3">
+                  <span className="w-1 h-8 bg-red rounded-full inline-block"></span>
                   Key Features
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                  {project.features.map((feature, idx) => (
-                    <div key={idx} className="flex items-center gap-3 bg-white rounded-xl p-4 border border-gray-200 shadow-sm">
-                      <div className="w-8 h-8 rounded-full bg-orange-100 flex items-center justify-center flex-shrink-0">
-                        <i className="ri-check-line text-orange-500"></i>
+                  {project.features.map((feature) => (
+                    <div key={feature} className="flex items-center gap-3 bg-surface rounded-xl p-4 border border-border-soft">
+                      <div className="w-8 h-8 rounded-full bg-cream flex items-center justify-center flex-shrink-0">
+                        <i className="ri-check-line text-red"></i>
                       </div>
-                      <span className="text-gray-700">{feature}</span>
+                      <span className="text-ink/80">{feature}</span>
                     </div>
                   ))}
                 </div>
               </div>
             </div>
 
-            {/* Sidebar */}
             <div className="space-y-6">
-
-              {/* Tech Used */}
-              <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-lg">
-                <h3 className="text-lg font-medium text-gray-900 mb-4 flex items-center gap-2">
-                  <i className="ri-code-s-slash-line text-orange-500"></i>
+              <div className="bg-surface rounded-2xl p-6 border border-border-soft">
+                <h3 className="text-lg font-display font-medium text-ink mb-4 flex items-center gap-2">
+                  <i className="ri-code-s-slash-line text-red"></i>
                   Technologies Used
                 </h3>
                 <div className="flex flex-wrap gap-2">
-                  {project.technologies.map((tech, idx) => (
-                    <span key={idx} className="px-3 py-1 bg-gray-100 text-gray-700 rounded-lg text-sm font-medium">
-                      {tech}
-                    </span>
+                  {project.technologies.map((tech) => (
+                    <TechChip key={tech}>{tech}</TechChip>
                   ))}
                 </div>
               </div>
 
-              {/* Category */}
-              <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-lg">
-                <h3 className="text-lg font-medium text-gray-900 mb-4 flex items-center gap-2">
-                  <i className="ri-folder-line text-orange-500"></i>
-                  Category
-                </h3>
-                <span className="px-4 py-2 bg-orange-500 text-white rounded-full text-sm font-medium">
-                  {project.category}
-                </span>
-              </div>
-
-              {/* CTA */}
-              <div className="bg-gradient-to-r from-orange-500 to-orange-600 rounded-2xl p-6 text-white">
-                <i className="ri-rocket-line text-3xl mb-3" style={{ display: "block" }}></i>
-                <h3 className="text-xl font-medium mb-2">Like what you see?</h3>
-                <p className="text-white/90 text-sm leading-relaxed mb-4">
-                  Let's build something amazing together. Get in touch to discuss your project.
+              <div className="bg-ink rounded-2xl p-6 text-white">
+                <i className="ri-rocket-line text-3xl mb-3 block text-yellow"></i>
+                <h3 className="text-xl font-display font-medium mb-2">Like what you see?</h3>
+                <p className="text-cream/70 text-sm leading-relaxed mb-5">
+                  Let's build something like this together — get in touch to talk through your project.
                 </p>
-                <a
-                  href="#contact"
-                  className="inline-flex items-center gap-2 bg-white text-orange-600 px-6 py-3 rounded-full font-medium transition-all duration-300 hover:shadow-lg hover:scale-105 text-sm"
-                >
+                <Button href="#contact" variant="light" icon="ri-arrow-right-line">
                   Get In Touch
-                  <i className="ri-arrow-right-line"></i>
-                </a>
+                </Button>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Similar Projects */}
       {similarProjects.length > 0 && (
-        <section className="py-20 lg:py-28 bg-white border-t border-gray-200">
+        <section className="py-20 lg:py-28 bg-cream/30 border-t border-border-soft">
           <div className="max-w-[1400px] mx-auto px-6 lg:px-8">
             <div className="flex items-center justify-between mb-12">
               <div>
-                <h2 className="text-4xl lg:text-5xl font-light text-gray-900 tracking-tight">
-                  More <span className="text-orange-500">{project.category}</span> Projects
+                <h2 className="text-4xl lg:text-5xl font-display font-medium text-ink tracking-tight">
+                  More <span className="text-red">{project.category}</span>
                 </h2>
-                <p className="text-gray-600 mt-2">Similar work you might like</p>
+                <p className="text-muted mt-2">Similar work you might like</p>
               </div>
               <a
                 href="#projects"
-                className="hidden md:inline-flex items-center gap-3 border border-gray-300 text-gray-700 px-6 py-3 rounded-full font-medium transition-all duration-300 hover:border-orange-500 hover:text-orange-500"
+                className="hidden md:inline-flex items-center gap-3 border border-border-soft text-ink px-6 py-3 rounded-full font-medium transition-all duration-300 hover:border-red hover:text-red"
               >
                 View All
                 <i className="ri-arrow-right-line"></i>

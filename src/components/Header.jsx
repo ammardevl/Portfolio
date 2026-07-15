@@ -1,65 +1,47 @@
 import React, { useState, useEffect } from "react";
-import iconWeb from "../assets/icon-web.jpeg";
+import { navigationLinks } from "../data/nav";
+import { socialLinks, contactInfo } from "../data/social";
 
-const navigationLinks = [
-  { href: "#home", label: "Home" },
-  { href: "#services", label: "Services" },
-  { href: "#projects", label: "Projects" },
-  { href: "#about", label: "About" },
-  { href: "#contact", label: "Contact" },
-];
+const Logo = ({ onClick }) => (
+  <a href="#home" onClick={onClick} className="flex items-center gap-0.5 group">
+    <span className="text-2xl lg:text-3xl font-display font-semibold text-ink tracking-tight">
+      Muhammad Ammar
+    </span>
+    <span className="w-[9px] h-[9px] rounded-full bg-red translate-y-2 group-hover:bg-yellow transition-colors duration-300" />
+  </a>
+);
 
-const Header = ({
-  mobileMenuOpen,
-  toggleMobileMenu,
-  closeMobileMenu,
-  currentPage,
-}) => {
+const Header = ({ mobileMenuOpen, toggleMobileMenu, closeMobileMenu, currentPage }) => {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
+    const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const isActive = (href) => {
-    const page = href.replace("#", "");
-    return currentPage === page || (currentPage === "home" && page === "home");
-  };
+  const isActive = (href) => currentPage === href.replace("#", "");
 
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled
-            ? "bg-white/95 backdrop-blur-md shadow-lg"
-            : "bg-white/90 backdrop-blur-md"
-        } border-b border-gray-200`}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-surface/95 backdrop-blur-md border-b border-border-soft ${
+          scrolled ? "shadow-sm" : ""
+        }`}
       >
         <div className="max-w-[1400px] mx-auto px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
-            <a
-              href="#home"
-              className="flex items-center gap-2 group"
-              onClick={closeMobileMenu}
-            >
-              <span className="text-3xl font-medium text-gray-900 font-chewy">
-                Muhammad Ammar
-              </span>
-            </a>
+            <Logo onClick={closeMobileMenu} />
 
             <nav className="hidden lg:flex items-center gap-1">
-              {navigationLinks.map((link, index) => (
+              {navigationLinks.map((link) => (
                 <a
-                  key={index}
+                  key={link.href}
                   href={link.href}
                   className={`px-4 py-2 rounded-lg transition-all duration-300 font-medium ${
                     isActive(link.href)
-                      ? "text-orange-500 bg-orange-50"
-                      : "text-gray-700 hover:text-orange-500 hover:bg-gray-50"
+                      ? "text-red bg-red/5"
+                      : "text-ink/70 hover:text-red hover:bg-cream/60"
                   }`}
                 >
                   {link.label}
@@ -67,63 +49,51 @@ const Header = ({
               ))}
             </nav>
 
-            {/* Mobile Menu Button */}
             <button
               onClick={toggleMobileMenu}
-              className="lg:hidden w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center transition-all duration-300 hover:bg-orange-500 hover:text-white"
+              className="lg:hidden w-10 h-10 rounded-full bg-cream flex items-center justify-center transition-all duration-300 hover:bg-red hover:text-white"
               aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
             >
-              <i
-                className={`${
-                  mobileMenuOpen ? "ri-close-line" : "ri-menu-line"
-                } text-lg`}
-              ></i>
+              <i className={`${mobileMenuOpen ? "ri-close-line" : "ri-menu-line"} text-lg`}></i>
             </button>
           </div>
         </div>
       </header>
 
-      {/* Full Screen Mobile Menu */}
+      {/* Full-screen mobile menu */}
       <div
-        className={`lg:hidden fixed inset-0 z-40 bg-white transition-all duration-500 ease-in-out ${
+        className={`lg:hidden fixed inset-0 z-40 bg-surface transition-opacity duration-500 ${
           mobileMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"
         }`}
       >
-        {/* Mobile Menu Header */}
-        <div className="flex items-center justify-between p-6 border-b border-gray-200">
+        <div className="flex items-center justify-between p-6 border-b border-border-soft">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl flex items-center justify-center">
-              <span className="text-white font-bold text-lg">A</span>
+            <div className="w-10 h-10 bg-ink rounded-xl flex items-center justify-center">
+              <span className="text-yellow font-mono font-semibold text-lg">$</span>
             </div>
-            <span className="text-xl font-medium text-gray-900">Menu</span>
+            <span className="text-xl font-display font-medium text-ink">Menu</span>
           </div>
           <button
             onClick={closeMobileMenu}
-            className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center transition-all duration-300 hover:bg-orange-500 hover:text-white"
+            className="w-10 h-10 rounded-full bg-cream flex items-center justify-center hover:bg-red hover:text-white transition-all duration-300"
           >
             <i className="ri-close-line text-xl"></i>
           </button>
         </div>
 
-        {/* Mobile Menu Content */}
         <div className="flex flex-col h-[calc(100vh-88px)]">
-          {/* Navigation Links */}
           <nav className="flex-1 flex flex-col items-center justify-center px-6 space-y-2">
             {navigationLinks.map((link, index) => (
               <a
-                key={index}
+                key={link.href}
                 href={link.href}
                 onClick={closeMobileMenu}
-                className={`text-3xl font-light py-4 px-6 rounded-xl transition-all duration-300 w-full text-center ${
-                  isActive(link.href)
-                    ? "text-orange-500 bg-orange-50 scale-105"
-                    : "text-gray-700 hover:text-orange-500 hover:bg-gray-50"
+                className={`text-3xl font-display font-light py-4 px-6 rounded-xl transition-all duration-300 w-full text-center ${
+                  isActive(link.href) ? "text-red bg-red/5" : "text-ink/80 hover:text-red"
                 }`}
                 style={{
                   transitionDelay: mobileMenuOpen ? `${index * 50}ms` : "0ms",
-                  transform: mobileMenuOpen
-                    ? "translateY(0)"
-                    : "translateY(-20px)",
+                  transform: mobileMenuOpen ? "translateY(0)" : "translateY(-16px)",
                   opacity: mobileMenuOpen ? 1 : 0,
                 }}
               >
@@ -132,43 +102,23 @@ const Header = ({
             ))}
           </nav>
 
-          {/* Mobile Menu Footer */}
-          <div className="p-6 border-t border-gray-200 space-y-4">
-            {/* Contact Button */}
+          <div className="p-6 border-t border-border-soft space-y-4">
             <a
-              href="mailto:console.log.ammar@gmail.com"
-              className="w-full flex items-center justify-center gap-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white py-4 rounded-xl font-medium transition-all duration-300 hover:shadow-lg"
+              href={`mailto:${contactInfo.email}`}
+              className="w-full flex items-center justify-center gap-3 bg-red text-white py-4 rounded-xl font-medium transition-all duration-300 hover:bg-ink"
             >
               <i className="ri-mail-line text-lg"></i>
               <span>Get In Touch</span>
             </a>
-
-            {/* Social Links */}
             <div className="flex items-center justify-center gap-4 pt-2">
-              {[
-                {
-                  href: "https://www.linkedin.com/in/muhammad-ammar-1a701130b/",
-                  icon: "ri-linkedin-fill",
-                },
-                {
-                  href: "https://github.com/ammardevl",
-                  icon: "ri-github-fill",
-                },
-                {
-                  href: "https://www.instagram.com/y.ammar_06/",
-                  icon: "ri-instagram-line",
-                },
-                {
-                  href: "https://www.facebook.com/profile.php?id=100007319979278",
-                  icon: "ri-facebook-fill",
-                },
-              ].map((social, idx) => (
+              {socialLinks.map((social) => (
                 <a
-                  key={idx}
+                  key={social.platform}
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center hover:bg-orange-500 hover:text-white transition-all duration-300"
+                  aria-label={social.platform}
+                  className="w-12 h-12 rounded-full bg-cream flex items-center justify-center hover:bg-red hover:text-white transition-all duration-300"
                 >
                   <i className={`${social.icon} text-lg`}></i>
                 </a>

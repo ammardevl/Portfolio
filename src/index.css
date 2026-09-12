@@ -1,25 +1,26 @@
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap");
 @import "tailwindcss";
-@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Sora:wght@400;500;600;700&family=Fira+Code:wght@400;500;600&display=swap");
 
-/* Palette 2 — cream / yellow / coral / red / ink.
-   Chosen for the strongest light/dark contrast and the most energy
-   without tipping into the same flat-orange look the old site had. */
+/*
+  Design system, premium editorial palette.
+  Ink + porcelain paper as the base, a single restrained brass accent
+  used sparingly for emphasis. No cream/terracotta, no cartoon primaries.
+*/
 @theme {
-  --color-ink: #191919;
-  --color-cream: #f1e8b8;
-  --color-yellow: #f9e784;
-  --color-coral: #e58f65;
-  --color-red: #d05353;
+  --color-ink: #131316;
+  --color-ink-soft: #2a2b30;
+  --color-paper: #faf9f6;
+  --color-panel: #f2f0ea;
+  --color-stone: #6f6d65;
+  --color-line: #e4e1d7;
+  --color-brass: #96723a;
+  --color-brass-soft: #b08e5c;
 
-  /* Derived neutrals — tints/shades of the palette, used for surfaces,
-     borders, and body text so pure white/gray never sneaks back in. */
-  --color-surface: #fffdf7;
-  --color-muted: #6b6558;
-  --color-border-soft: #e7dfc4;
+  --font-display: "Fraunces", serif;
+  --font-body: "Inter", sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
 
-  --font-display: "Sora", sans-serif;
-  --font-body: "Manrope", sans-serif;
-  --font-mono: "Fira Code", monospace;
+  --shadow-soft: 0 1px 2px rgba(19, 19, 22, 0.04), 0 8px 24px rgba(19, 19, 22, 0.06);
 }
 
 html {
@@ -27,15 +28,97 @@ html {
   font-family: var(--font-body);
 }
 
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 body {
-  background-color: #ffffff;
+  background-color: var(--color-paper);
   color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 .font-display {
   font-family: var(--font-display);
+  font-optical-sizing: auto;
 }
 
 .font-mono {
   font-family: var(--font-mono);
+}
+
+/* Visible keyboard focus everywhere, accessibility floor */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--color-brass);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+::selection {
+  background: var(--color-brass);
+  color: var(--color-paper);
+}
+
+/* Reveal animations are applied and removed entirely in JS (see lib/animate.js),
+   scoped to a try/catch with a guaranteed visible fallback. Content is never
+   hidden by CSS alone, so a JS failure can never leave the page blank. */
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.container-page {
+  max-width: 1360px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+  .container-page {
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+  }
+}
+
+/* Skip link for keyboard/screen-reader users */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  background: var(--color-ink);
+  color: var(--color-paper);
+  padding: 0.75rem 1.25rem;
+  border-radius: 0 0 8px 0;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+}
+
+.skip-link:focus {
+  left: 0;
 }

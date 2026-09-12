@@ -1,86 +1,69 @@
-import React from "react";
+import { Link } from "react-router-dom";
 import { navigationLinks } from "../data/nav";
-import { contactInfo } from "../data/social";
-import { SocialRow } from "./ui";
-
-const contactRows = [
-  { icon: "ri-mail-line", label: "Email", value: contactInfo.email, href: `mailto:${contactInfo.email}` },
-  { icon: "ri-time-line", label: "Response Time", value: contactInfo.responseTime },
-  { icon: "ri-global-line", label: "Location", value: contactInfo.location },
-];
+import { socialLinks, contactInfo } from "../data/social";
 
 const Footer = () => {
-  const currentYear = new Date().getFullYear();
+  const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-surface border-t border-border-soft">
-      <div className="py-16 lg:py-20">
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-12 mb-12">
-            <div className="lg:col-span-2">
-              <span className="text-3xl font-display font-semibold text-ink mb-5 inline-block">
-                Muhammad Ammar
-              </span>
-              <p className="text-muted mb-6 leading-relaxed max-w-md">
-                Frontend developer building fast, custom-coded and WordPress
-                websites — increasingly with AI tools in the workflow, never
-                as a shortcut for judgment.
-              </p>
-              <SocialRow />
+    <footer className="bg-ink text-paper">
+      <div className="container-page py-16 lg:py-20">
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-8">
+          <div className="lg:col-span-5">
+            <Link to="/" className="text-2xl font-display font-medium text-paper tracking-tight">
+              Muhammad Ammar
+            </Link>
+            <p className="text-paper/60 mt-5 max-w-sm leading-relaxed">
+              Frontend and website developer building fast, accessible sites in React, Next.js,
+              WordPress, Webflow, and Squarespace.
+            </p>
+            <div className="flex gap-3 mt-8">
+              {socialLinks.map((social) => (
+                <a
+                  key={social.platform}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Visit my ${social.platform} profile`}
+                  className="w-10 h-10 rounded-full border border-white/15 flex items-center justify-center transition-all duration-300 hover:border-brass hover:text-brass"
+                >
+                  <i className={social.icon} aria-hidden="true"></i>
+                </a>
+              ))}
             </div>
+          </div>
 
-            <div>
-              <h3 className="text-lg font-display font-medium text-ink mb-6">Quick Links</h3>
-              <ul className="space-y-3">
-                {navigationLinks.map((link) => (
-                  <li key={link.href}>
-                    <a href={link.href} className="text-muted hover:text-red transition-colors duration-300">
-                      {link.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
+          <div className="lg:col-span-3">
+            <h3 className="font-mono text-sm text-paper/40 mb-5">Navigate</h3>
+            <ul className="space-y-3">
+              {navigationLinks.map((link) => (
+                <li key={link.href}>
+                  <Link to={link.href} className="text-paper/70 hover:text-paper transition-colors duration-300">
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
 
-            <div>
-              <h3 className="text-lg font-display font-medium text-ink mb-6">Get in Touch</h3>
-              <div className="space-y-4">
-                {contactRows.map((row) => (
-                  <div key={row.label} className="flex items-start gap-3">
-                    <div className="w-8 h-8 bg-cream rounded-full flex items-center justify-center mt-1">
-                      <i className={`${row.icon} text-red text-sm`}></i>
-                    </div>
-                    <div>
-                      <div className="font-medium text-ink text-sm">{row.label}</div>
-                      {row.href ? (
-                        <a href={row.href} className="text-muted hover:text-red text-sm transition-colors duration-300">
-                          {row.value}
-                        </a>
-                      ) : (
-                        <div className="text-muted text-sm">{row.value}</div>
-                      )}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+          <div className="lg:col-span-4">
+            <h3 className="font-mono text-sm text-paper/40 mb-5">Get in touch</h3>
+            <a
+              href={`mailto:${contactInfo.email}`}
+              className="text-paper/70 hover:text-paper transition-colors duration-300 break-all"
+            >
+              {contactInfo.email}
+            </a>
+            <p className="text-paper/50 mt-3 text-sm">{contactInfo.location}</p>
+            <p className="text-paper/50 mt-1 text-sm">{contactInfo.responseTime}</p>
           </div>
         </div>
-      </div>
 
-      <div className="border-t border-border-soft py-6">
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-muted text-sm">
-              &copy; {currentYear} Muhammad Ammar. All rights reserved.
-            </p>
-            <p className="text-sm text-muted font-mono">
-              built by{" "}
-              <a href={contactInfo.portfolioUrl} className="text-red hover:text-ink transition-colors duration-300">
-                Ammar
-              </a>
-            </p>
-          </div>
+        <div className="border-t border-white/10 mt-14 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+          <p className="text-paper/40 text-sm">
+            &copy; {year} Muhammad Ammar. All rights reserved.
+          </p>
+          <p className="text-paper/40 text-sm">Designed and built by Muhammad Ammar</p>
         </div>
       </div>
     </footer>

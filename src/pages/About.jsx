@@ -1,218 +1,218 @@
-import myimage from "../assets/my-image.jpeg";
-import { Eyebrow, Button, SectionHeading, StatCard, CTASection } from "../components/ui";
+import myimage from "../assets/my-image.png";
+import { aboutStats, timelineData, values } from "../data/about";
+import { skillGroups, tierOrder } from "../data/skills";
+import { Button, SectionHeading } from "../components/ui";
+import { CTASection } from "../components/ui";
+import Reveal from "../components/Reveal";
+import Seo from "../components/Seo";
 
-const aboutStats = [
-  { number: "3+", label: "Years Experience", icon: "ri-time-line" },
-  { number: "35+", label: "Projects Completed", icon: "ri-folder-check-line" },
-  { number: "100%", label: "Client Satisfaction", icon: "ri-star-line" },
-  { number: "15+", label: "Happy Clients", icon: "ri-user-smile-line" },
-];
+const tierStyles = {
+  Core: "bg-ink text-paper",
+  Working: "bg-brass text-paper",
+  Familiar: "border border-line text-stone",
+};
 
-const skillsData = [
-  {
-    category: "Frontend Development",
-    icon: "ri-code-s-slash-line",
-    skills: [
-      { name: "HTML5 & CSS3", level: 100 },
-      { name: "JavaScript ES6+", level: 91 },
-      { name: "React.js", level: 75 },
-      { name: "Tailwind CSS", level: 92 },
-      { name: "Responsive Design", level: 99 },
-    ],
-  },
-  {
-    category: "WordPress Development",
-    icon: "ri-wordpress-line",
-    skills: [
-      { name: "Website Maintenance", level: 100 },
-      { name: "Plugin Customization", level: 85 },
-      { name: "Elementor & Divi", level: 99 },
-      { name: "WooCommerce", level: 83 },
-      { name: "WordPress Optimization", level: 97 },
-    ],
-  },
-  {
-    category: "Tools & AI Workflow",
-    icon: "ri-tools-line",
-    skills: [
-      { name: "Git & GitHub", level: 95 },
-      { name: "Claude Code", level: 90 },
-      { name: "Performance Optimization", level: 97 },
-      { name: "API Integration", level: 85 },
-      { name: "SEO Optimization", level: 92 },
-    ],
-  },
-];
-
-const timelineData = [
-  {
-    year: "2024 — Present",
-    title: "Freelance Website Developer",
-    company: "Self-Employed",
-    description:
-      "Building custom websites and web apps for clients worldwide. Focused on React and WordPress development, with modern design, SEO, and performance as non-negotiables.",
-    icon: "ri-briefcase-line",
-  },
-  {
-    year: "2024, 3 months",
-    title: "Intern WordPress Developer",
-    company: "Meta Perficient",
-    description:
-      "Worked on real client projects doing WordPress theme customization and development — the foundation for everything that came after, including learning HTML5, CSS3, and JavaScript properly.",
-    icon: "ri-wordpress-line",
-  },
-  {
-    year: "2023 — 2024",
-    title: "Started the Web Development Journey",
-    company: "Self-Taught",
-    description:
-      "Started with WordPress, the most widely used CMS, and found the part of development I actually enjoy: turning a vague idea into something people can use.",
-    icon: "ri-graduation-cap-line",
-  },
-];
-
-const values = [
-  { icon: "ri-lightbulb-line", title: "Innovation", description: "Staying curious about new tools and technologies, including AI, and using them where they genuinely help." },
-  { icon: "ri-check-double-line", title: "Quality", description: "Code and design that hold up after launch, not just at the demo." },
-  { icon: "ri-time-line", title: "Reliability", description: "Clear timelines and clear updates — no guessing where a project stands." },
-  { icon: "ri-team-line", title: "Collaboration", description: "Understanding what you're actually trying to achieve before writing a line of code." },
-];
-
-const SkillBar = ({ skill }) => (
-  <div className="mb-6 last:mb-0">
-    <div className="flex justify-between mb-2">
-      <span className="text-ink/80 font-medium text-sm">{skill.name}</span>
-      <span className="text-red font-mono text-sm">{skill.level}%</span>
-    </div>
-    <div className="h-2 bg-cream rounded-full overflow-hidden">
-      <div className="h-full bg-red rounded-full transition-all duration-1000 ease-out" style={{ width: `${skill.level}%` }} />
-    </div>
-  </div>
+const SkillTag = ({ skill }) => (
+  <span
+    className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm ${tierStyles[skill.tier]}`}
+  >
+    {skill.name}
+  </span>
 );
 
 const TimelineItem = ({ item }) => (
   <div className="relative flex gap-6 pb-12 last:pb-0">
-    <div className="absolute left-[27px] top-14 bottom-0 w-0.5 bg-border-soft" />
+    <div
+      className="absolute left-[27px] top-14 bottom-0 w-px bg-line"
+      aria-hidden="true"
+    />
     <div className="relative z-10 flex-shrink-0">
       <div className="w-14 h-14 rounded-full bg-ink flex items-center justify-center">
-        <i className={`${item.icon} text-yellow text-xl`}></i>
+        <i
+          className={`${item.icon} text-brass-soft text-xl`}
+          aria-hidden="true"
+        ></i>
       </div>
     </div>
     <div className="flex-1 pt-2">
-      <span className="inline-block px-3 py-1 bg-cream text-ink rounded-full text-sm font-mono mb-3">{item.year}</span>
-      <h3 className="text-xl font-display font-medium text-ink mb-1">{item.title}</h3>
-      <p className="text-red font-medium mb-3">{item.company}</p>
-      <p className="text-muted leading-relaxed">{item.description}</p>
+      <span className="inline-block px-3 py-1 bg-panel text-ink rounded-md text-sm font-mono mb-3">
+        {item.year}
+      </span>
+      <h3 className="text-xl font-display font-medium text-ink mb-1">
+        {item.title}
+      </h3>
+      <p className="text-brass font-medium mb-3">{item.company}</p>
+      <p className="text-stone leading-relaxed">{item.description}</p>
     </div>
   </div>
 );
 
-const About = () => {
-  return (
-    <div className="min-h-screen bg-white">
-      <section className="py-20 lg:py-28">
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-20">
-            <div className="relative order-2 lg:order-1">
+const About = () => (
+  <div>
+    <Seo
+      title="About"
+      description="Muhammad Ammar is a frontend and website developer with three-plus years building React, Next.js, and WordPress sites for clients worldwide."
+      path="/about"
+    />
+
+    <section className="pt-40 pb-20 lg:pt-48 lg:pb-28">
+      <div className="container-page">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <Reveal className="order-2 lg:order-1">
+            <div className="relative">
               <img
-                className="w-full h-96 lg:h-[600px] object-cover object-bottom rounded-2xl shadow-xl relative z-10"
+                className="w-full h-96 lg:h-[560px] object-cover object-top rounded-lg relative z-10"
                 src={myimage}
-                alt="Muhammad Ammar, Frontend Developer"
+                alt="Muhammad Ammar, frontend and website developer"
+                width="600"
+                height="700"
               />
-              <div className="absolute -top-4 -right-4 w-full h-full bg-red rounded-2xl opacity-10" />
+              <div
+                className="absolute -bottom-4 -right-4 w-full h-full border border-line rounded-lg -z-0"
+                aria-hidden="true"
+              />
             </div>
+          </Reveal>
 
-            <div className="order-1 lg:order-2">
-              <div className="mb-6">
-                <Eyebrow>whoami</Eyebrow>
-              </div>
-              <h1 className="text-4xl lg:text-6xl font-display font-medium mb-6 text-ink tracking-tight">
-                About <span className="text-red">Me</span>
-              </h1>
-              <p className="text-lg text-muted mb-6 leading-relaxed">
-                I'm Muhammad Ammar, a frontend developer with over three years
-                of experience building websites that hold up. My journey
-                started with WordPress and grew into modern React
-                development.
-              </p>
-              <p className="text-lg text-muted mb-8 leading-relaxed">
-                I care about the same three things on every project:
-                responsive layouts, real performance, and a website that
-                actually converts visitors — not just looks good in a
-                screenshot.
-              </p>
+          <Reveal className="order-1 lg:order-2">
+            <p className="font-mono text-sm text-brass mb-6">About me</p>
+            <h1 className="text-4xl lg:text-6xl font-display font-medium mb-6 text-ink tracking-tight leading-[1.1]">
+              A developer who thinks about the whole page, not just the code
+            </h1>
+            <p className="text-lg text-stone mb-6 leading-relaxed">
+              I'm Muhammad Ammar, a frontend developer with over three years of
+              experience building websites that hold up. My start was WordPress,
+              and it grew from there into React, Next.js, and no-code platforms
+              like Webflow and Squarespace.
+            </p>
+            <p className="text-lg text-stone mb-8 leading-relaxed">
+              The same three things matter on every project: a layout that works
+              on any screen, real performance, and a site that actually converts
+              visitors, not just one that looks good in a screenshot.
+            </p>
 
-              <div className="grid grid-cols-2 gap-4 mb-8">
-                {aboutStats.map((stat) => (
-                  <StatCard key={stat.label} {...stat} />
-                ))}
-              </div>
-
-              <Button href="#contact" icon="ri-arrow-right-line">
-                Let's Work Together
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="py-24 lg:py-32 bg-cream/40">
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-8">
-          <SectionHeading eyebrow="skills --level" title="My" highlight="Skills" subtitle="Technical range and where I spend most of my time." />
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {skillsData.map((category) => (
-              <div key={category.category} className="bg-white rounded-2xl p-8 shadow-sm border border-border-soft">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-12 h-12 rounded-xl bg-ink flex items-center justify-center">
-                    <i className={`${category.icon} text-yellow text-xl`}></i>
+            <div className="grid grid-cols-2 gap-5 mb-8">
+              {aboutStats.map((stat) => (
+                <div key={stat.label} className="border-l-2 border-line pl-4">
+                  <div className="text-2xl font-display font-medium text-ink">
+                    {stat.number}
                   </div>
-                  <h3 className="text-lg font-display font-medium text-ink">{category.category}</h3>
+                  <div className="text-stone text-sm mt-1">{stat.label}</div>
                 </div>
-                {category.skills.map((skill) => (
-                  <SkillBar key={skill.name} skill={skill} />
+              ))}
+            </div>
+
+            <Button to="/contact" icon="ri-arrow-right-line">
+              Let's Work Together
+            </Button>
+          </Reveal>
+        </div>
+      </div>
+    </section>
+
+    <section className="py-24 lg:py-32 bg-panel">
+      <div className="container-page">
+        <Reveal>
+          <SectionHeading
+            kicker="Capabilities"
+            title="My skills"
+            subtitle="Grouped by what I actually work in daily, versus what I'm capable of but reach for less often."
+          />
+        </Reveal>
+
+        <Reveal className="flex flex-wrap gap-5 mb-12 text-sm">
+          {tierOrder.map((tier) => (
+            <div key={tier} className="flex items-center gap-2">
+              <span
+                className={`w-3 h-3 rounded-sm ${tierStyles[tier].split(" ")[0]}`}
+                aria-hidden="true"
+              ></span>
+              <span className="text-stone">{tier}</span>
+            </div>
+          ))}
+        </Reveal>
+
+        <Reveal stagger className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {skillGroups.map((group) => (
+            <div
+              key={group.category}
+              className="bg-paper rounded-lg p-8 border border-line"
+            >
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-11 h-11 rounded-md bg-ink flex items-center justify-center">
+                  <i
+                    className={`${group.icon} text-brass-soft text-lg`}
+                    aria-hidden="true"
+                  ></i>
+                </div>
+                <h3 className="text-lg font-display font-medium text-ink">
+                  {group.category}
+                </h3>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {group.skills.map((skill) => (
+                  <SkillTag key={skill.name} skill={skill} />
                 ))}
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
+            </div>
+          ))}
+        </Reveal>
+      </div>
+    </section>
 
-      <section className="py-24 lg:py-32">
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-8">
-          <SectionHeading eyebrow="timeline --career" title="My" highlight="Journey" />
-          <div className="max-w-3xl mx-auto">
-            {timelineData.map((item) => (
-              <TimelineItem key={item.title} item={item} />
-            ))}
-          </div>
+    <section className="py-24 lg:py-32">
+      <div className="container-page">
+        <Reveal>
+          <SectionHeading kicker="Career" title="My journey" />
+        </Reveal>
+        <div className="max-w-3xl mx-auto">
+          {timelineData.map((item) => (
+            <Reveal key={item.title}>
+              <TimelineItem item={item} />
+            </Reveal>
+          ))}
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section className="py-24 lg:py-32 bg-cream/40">
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-8">
-          <SectionHeading eyebrow="values --core" title="Core" highlight="Values" />
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {values.map((value) => (
-              <div key={value.title} className="bg-white rounded-2xl p-8 text-center shadow-sm hover:shadow-lg transition-all duration-300 border border-border-soft hover:border-red">
-                <div className="w-16 h-16 mx-auto mb-4 rounded-xl bg-red flex items-center justify-center">
-                  <i className={`${value.icon} text-white text-2xl`}></i>
-                </div>
-                <h3 className="text-xl font-display font-medium mb-3 text-ink">{value.title}</h3>
-                <p className="text-muted leading-relaxed">{value.description}</p>
+    <section className="py-24 lg:py-32 bg-panel">
+      <div className="container-page">
+        <Reveal>
+          <SectionHeading kicker="How I work" title="Core values" />
+        </Reveal>
+        <Reveal
+          stagger
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+        >
+          {values.map((value) => (
+            <div
+              key={value.title}
+              className="bg-paper rounded-lg p-8 text-center border border-line transition-colors duration-300 hover:border-brass"
+            >
+              <div className="w-14 h-14 mx-auto mb-5 rounded-md bg-ink flex items-center justify-center">
+                <i
+                  className={`${value.icon} text-brass-soft text-xl`}
+                  aria-hidden="true"
+                ></i>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
+              <h3 className="text-lg font-display font-medium mb-3 text-ink">
+                {value.title}
+              </h3>
+              <p className="text-stone leading-relaxed text-[15px]">
+                {value.description}
+              </p>
+            </div>
+          ))}
+        </Reveal>
+      </div>
+    </section>
 
-      <CTASection
-        title="Let's Create Something"
-        highlight="Amazing"
-        subtitle="Ready to bring your project to life? Get in touch and let's start building."
-        ctaLabel="Contact Me"
-      />
-    </div>
-  );
-};
+    <CTASection
+      title="Let's create something worth shipping"
+      subtitle="Ready to bring your project to life? Get in touch and let's start building."
+      ctaLabel="Contact Me"
+    />
+  </div>
+);
 
 export default About;

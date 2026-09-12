@@ -1,46 +1,15 @@
 import { useMemo } from "react";
+import { useParams, Navigate, Link } from "react-router-dom";
 import { allProjects, categoryAccent } from "../data/projects";
 import { getImage } from "../data/imageMap";
 import { Button, TechChip } from "../components/ui";
+import ProjectCard from "../components/ProjectCard";
+import Reveal from "../components/Reveal";
+import Seo from "../components/Seo";
+import { site } from "../data/seo";
 
-const SimilarProjectCard = ({ project }) => {
-  const imageSrc = getImage(project.imageKey);
-  return (
-    <a
-      href={`#${project.slug}`}
-      className="group bg-surface rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 border border-border-soft hover:border-red block"
-    >
-      <div className="relative overflow-hidden h-44">
-        {imageSrc ? (
-          <img
-            src={imageSrc}
-            alt={project.title}
-            loading="lazy"
-            className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
-          />
-        ) : (
-          <div className="w-full h-full bg-cream flex flex-col items-center justify-center gap-2 text-ink/40">
-            <i className="ri-image-line text-3xl"></i>
-            <span className="text-sm">Image coming soon</span>
-          </div>
-        )}
-        <span
-          className={`absolute top-3 right-3 px-3 py-1 rounded-full text-xs font-mono font-medium ${categoryAccent[project.category]}`}
-        >
-          {project.category}
-        </span>
-      </div>
-      <div className="p-5">
-        <h4 className="text-lg font-display font-medium mb-2 text-ink group-hover:text-red transition-colors duration-300">
-          {project.title}
-        </h4>
-        <p className="text-muted text-sm leading-relaxed line-clamp-2">{project.shortDescription}</p>
-      </div>
-    </a>
-  );
-};
-
-const ProjectDetail = ({ slug }) => {
+const ProjectDetail = () => {
+  const { slug } = useParams();
   const project = useMemo(() => allProjects.find((p) => p.slug === slug), [slug]);
 
   const similarProjects = useMemo(
@@ -52,45 +21,52 @@ const ProjectDetail = ({ slug }) => {
   );
 
   if (!project) {
-    return (
-      <div className="min-h-screen bg-white flex items-center justify-center">
-        <div className="text-center">
-          <i className="ri-error-warning-line text-6xl text-red mb-4 block"></i>
-          <h2 className="text-2xl font-display font-medium text-ink mb-6">Project not found</h2>
-          <Button href="#projects" icon="ri-arrow-left-line">
-            Back to Projects
-          </Button>
-        </div>
-      </div>
-    );
+    return <Navigate to="/404" replace />;
   }
 
   const imageSrc = getImage(project.imageKey);
 
+  const projectSchema = {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    name: project.title,
+    description: project.shortDescription,
+    url: `${site.url}/projects/${project.slug}`,
+    creator: { "@type": "Person", name: "Muhammad Ammar" },
+    keywords: project.technologies.join(", "),
+  };
+
   return (
-    <div className="min-h-screen bg-white">
-      <section className="py-16 lg:py-24 bg-surface border-b border-border-soft">
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-8">
-          <div className="flex items-center gap-2 text-sm text-muted mb-8 font-mono">
-            <a href="#home" className="hover:text-red transition-colors duration-300">home</a>
+    <div>
+      <Seo
+        title={project.title}
+        description={project.shortDescription}
+        path={`/projects/${project.slug}`}
+        image={imageSrc || undefined}
+        structuredData={projectSchema}
+      />
+
+      <section className="pt-40 pb-16 lg:pt-48 lg:pb-20 bg-panel border-b border-line">
+        <div className="container-page">
+          <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-sm text-stone mb-10 font-mono">
+            <Link to="/" className="hover:text-brass transition-colors duration-300">home</Link>
             <span>/</span>
-            <a href="#projects" className="hover:text-red transition-colors duration-300">projects</a>
+            <Link to="/projects" className="hover:text-brass transition-colors duration-300">projects</Link>
             <span>/</span>
-            <span className="text-red">{project.slug}</span>
-          </div>
+            <span className="text-brass">{project.slug}</span>
+          </nav>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
+            <Reveal>
               <span
-                className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-mono font-medium mb-4 ${categoryAccent[project.category]}`}
+                className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-md text-xs font-mono mb-5 ${categoryAccent[project.category]}`}
               >
-                <i className="ri-folder-line"></i>
                 {project.category}
               </span>
-              <h1 className="text-4xl lg:text-6xl font-display font-medium mb-6 text-ink tracking-tight leading-tight">
+              <h1 className="text-4xl lg:text-5xl font-display font-medium mb-6 text-ink tracking-tight leading-[1.1]">
                 {project.title}
               </h1>
-              <p className="text-lg text-muted mb-8 leading-relaxed">{project.shortDescription}</p>
+              <p className="text-lg text-stone mb-8 leading-relaxed">{project.shortDescription}</p>
 
               <div className="flex flex-wrap gap-2 mb-8">
                 {project.technologies.map((tech) => (
@@ -99,142 +75,133 @@ const ProjectDetail = ({ slug }) => {
               </div>
 
               <div className="flex flex-wrap gap-4">
-                {project.link && project.link !== "#" ? (
+                {project.link ? (
                   <Button href={project.link} external icon="ri-external-link-line">
                     Visit Live Website
                   </Button>
                 ) : (
-                  <span className="inline-flex items-center gap-3 border border-border-soft text-ink/40 px-7 py-3.5 rounded-full font-medium cursor-not-allowed">
-                    <i className="ri-time-line"></i>
+                  <span className="inline-flex items-center gap-3 border border-line text-stone px-7 py-3.5 rounded-md font-medium">
+                    <i className="ri-time-line" aria-hidden="true"></i>
                     Live Link Coming Soon
                   </span>
                 )}
-                <Button href="#projects" variant="ghost" icon="ri-arrow-left-line">
-                  All Projects
-                </Button>
+                {project.githubLink && (
+                  <Button href={project.githubLink} external variant="ghost" icon="ri-github-fill">
+                    View Code
+                  </Button>
+                )}
               </div>
-            </div>
+            </Reveal>
 
-            <div className="relative">
-              <div className="rounded-2xl overflow-hidden shadow-xl h-[400px]">
+            <Reveal>
+              <div className="rounded-lg overflow-hidden border border-line h-[340px] lg:h-[420px]">
                 {imageSrc ? (
-                  <img src={imageSrc} alt={project.title} className="w-full h-full object-cover object-top" />
+                  <img
+                    src={imageSrc}
+                    alt={`Screenshot of the ${project.title} website`}
+                    className="w-full h-full object-cover object-top"
+                  />
                 ) : (
-                  <div className="w-full h-full bg-cream flex flex-col items-center justify-center gap-3 text-ink/40">
-                    <i className="ri-image-line text-6xl"></i>
-                    <span>Image coming soon</span>
+                  <div className="w-full h-full bg-panel flex flex-col items-center justify-center gap-3 text-stone">
+                    <i className="ri-image-line text-5xl" aria-hidden="true"></i>
+                    <span className="font-mono text-sm">Image coming soon</span>
                   </div>
                 )}
               </div>
-            </div>
+            </Reveal>
           </div>
         </div>
       </section>
 
       <section className="py-20 lg:py-28">
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-8">
+        <div className="container-page">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-            <div className="lg:col-span-2 space-y-12">
-              <div>
-                <h2 className="text-3xl font-display font-medium mb-6 text-ink flex items-center gap-3">
-                  <span className="w-1 h-8 bg-red rounded-full inline-block"></span>
-                  About This Project
-                </h2>
-                <p className="text-muted leading-relaxed text-lg">{project.description}</p>
-              </div>
+            <div className="lg:col-span-2 space-y-14">
+              <Reveal>
+                <h2 className="text-2xl font-display font-medium mb-5 text-ink">About this project</h2>
+                <p className="text-stone leading-relaxed text-lg">{project.description}</p>
+                {project.role && (
+                  <p className="text-sm font-mono text-brass mt-4">Role: {project.role}</p>
+                )}
+              </Reveal>
 
               {project.challenge && (
-                <div>
-                  <h2 className="text-3xl font-display font-medium mb-6 text-ink flex items-center gap-3">
-                    <span className="w-1 h-8 bg-red rounded-full inline-block"></span>
-                    The Challenge
-                  </h2>
-                  <div className="bg-cream/50 border border-border-soft rounded-2xl p-6">
+                <Reveal>
+                  <h2 className="text-2xl font-display font-medium mb-5 text-ink">The challenge</h2>
+                  <div className="bg-panel border border-line rounded-lg p-6">
                     <p className="text-ink/80 leading-relaxed">{project.challenge}</p>
                   </div>
-                </div>
+                </Reveal>
               )}
 
               {project.outcome && (
-                <div>
-                  <h2 className="text-3xl font-display font-medium mb-6 text-ink flex items-center gap-3">
-                    <span className="w-1 h-8 bg-red rounded-full inline-block"></span>
-                    The Outcome
-                  </h2>
-                  <div className="bg-ink rounded-2xl p-6">
-                    <p className="text-cream leading-relaxed">{project.outcome}</p>
+                <Reveal>
+                  <h2 className="text-2xl font-display font-medium mb-5 text-ink">The outcome</h2>
+                  <div className="bg-ink rounded-lg p-6">
+                    <p className="text-paper/85 leading-relaxed">{project.outcome}</p>
                   </div>
-                </div>
+                </Reveal>
               )}
 
-              <div>
-                <h2 className="text-3xl font-display font-medium mb-6 text-ink flex items-center gap-3">
-                  <span className="w-1 h-8 bg-red rounded-full inline-block"></span>
-                  Key Features
-                </h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <Reveal>
+                <h2 className="text-2xl font-display font-medium mb-5 text-ink">Key features</h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {project.features.map((feature) => (
-                    <div key={feature} className="flex items-center gap-3 bg-surface rounded-xl p-4 border border-border-soft">
-                      <div className="w-8 h-8 rounded-full bg-cream flex items-center justify-center flex-shrink-0">
-                        <i className="ri-check-line text-red"></i>
-                      </div>
-                      <span className="text-ink/80">{feature}</span>
+                    <div key={feature} className="flex items-center gap-3 border border-line rounded-md p-4">
+                      <i className="ri-check-line text-brass flex-shrink-0" aria-hidden="true"></i>
+                      <span className="text-ink/80 text-[15px]">{feature}</span>
                     </div>
                   ))}
                 </div>
-              </div>
+              </Reveal>
             </div>
 
             <div className="space-y-6">
-              <div className="bg-surface rounded-2xl p-6 border border-border-soft">
-                <h3 className="text-lg font-display font-medium text-ink mb-4 flex items-center gap-2">
-                  <i className="ri-code-s-slash-line text-red"></i>
-                  Technologies Used
-                </h3>
+              <Reveal className="border border-line rounded-lg p-6">
+                <h3 className="text-lg font-display font-medium text-ink mb-4">Technologies used</h3>
                 <div className="flex flex-wrap gap-2">
                   {project.technologies.map((tech) => (
                     <TechChip key={tech}>{tech}</TechChip>
                   ))}
                 </div>
-              </div>
+              </Reveal>
 
-              <div className="bg-ink rounded-2xl p-6 text-white">
-                <i className="ri-rocket-line text-3xl mb-3 block text-yellow"></i>
-                <h3 className="text-xl font-display font-medium mb-2">Like what you see?</h3>
-                <p className="text-cream/70 text-sm leading-relaxed mb-5">
-                  Let's build something like this together — get in touch to talk through your project.
+              <Reveal className="bg-ink rounded-lg p-6">
+                <h3 className="text-lg font-display font-medium text-paper mb-2">Like what you see?</h3>
+                <p className="text-paper/65 text-sm leading-relaxed mb-5">
+                  Let's talk through what a project like this could look like for you.
                 </p>
-                <Button href="#contact" variant="light" icon="ri-arrow-right-line">
-                  Get In Touch
+                <Button to="/contact" variant="light" icon="ri-arrow-right-line">
+                  Get in Touch
                 </Button>
-              </div>
+              </Reveal>
             </div>
           </div>
         </div>
       </section>
 
       {similarProjects.length > 0 && (
-        <section className="py-20 lg:py-28 bg-cream/30 border-t border-border-soft">
-          <div className="max-w-[1400px] mx-auto px-6 lg:px-8">
-            <div className="flex items-center justify-between mb-12">
+        <section className="py-20 lg:py-28 bg-panel border-t border-line">
+          <div className="container-page">
+            <div className="flex items-end justify-between mb-12 flex-wrap gap-6">
               <div>
-                <h2 className="text-4xl lg:text-5xl font-display font-medium text-ink tracking-tight">
-                  More <span className="text-red">{project.category}</span>
+                <h2 className="text-3xl lg:text-4xl font-display font-medium text-ink tracking-tight">
+                  More {project.category}
                 </h2>
-                <p className="text-muted mt-2">Similar work you might like</p>
+                <p className="text-stone mt-2">Similar work you might like.</p>
               </div>
-              <a
-                href="#projects"
-                className="hidden md:inline-flex items-center gap-3 border border-border-soft text-ink px-6 py-3 rounded-full font-medium transition-all duration-300 hover:border-red hover:text-red"
+              <Link
+                to="/projects"
+                className="hidden md:inline-flex items-center gap-2 border border-line text-ink px-6 py-3 rounded-md font-medium transition-all duration-300 hover:border-brass hover:text-brass"
               >
                 View All
-                <i className="ri-arrow-right-line"></i>
-              </a>
+                <i className="ri-arrow-right-line" aria-hidden="true"></i>
+              </Link>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {similarProjects.map((p) => (
-                <SimilarProjectCard key={p.id} project={p} />
+                <ProjectCard key={p.id} project={p} />
               ))}
             </div>
           </div>

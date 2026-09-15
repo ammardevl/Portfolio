@@ -58,12 +58,10 @@ const BackToTop = () => {
       ref={btnRef}
       onClick={scrollToTop}
       aria-label="Back to top"
-      className={`fixed bottom-7 right-7 z-40 w-12 h-12 rounded-full bg-ink text-paper flex items-center justify-center shadow-soft transition-colors duration-300 hover:bg-brass ${
-        visible ? "" : "pointer-events-none"
-      }`}
+      className={`ammar-dev-back-to-top ${visible ? "" : "ammar-dev-back-to-top--hidden"}`}
       style={{ opacity: 0 }}
     >
-      <i className="ri-arrow-up-line text-xl" aria-hidden="true"></i>
+      <i className="ri-arrow-up-line" aria-hidden="true"></i>
     </button>
   );
 };

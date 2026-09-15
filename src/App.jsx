@@ -13,13 +13,13 @@ import NotFound from "./pages/NotFound";
 
 function App() {
   return (
-    <div className="flex flex-col min-h-screen">
-      <a href="#main-content" className="skip-link">
+    <div className="ammar-dev-app">
+      <a href="#ammar-dev-main-content" className="ammar-dev-skip-link">
         Skip to main content
       </a>
       <ScrollToTop />
       <Header />
-      <main id="main-content" className="flex-1">
+      <main id="ammar-dev-main-content" className="ammar-dev-main">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/services" element={<Services />} />

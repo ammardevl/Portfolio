@@ -17,14 +17,12 @@ const faqSchema = {
 
 const InputField = ({ label, type = "text", placeholder, rows, value, onChange, required = false }) => {
   const inputId = `input-${label.toLowerCase().replace(/\s+/g, "-")}`;
-  const baseClass =
-    "w-full p-4 border border-line rounded-md focus:outline-none focus:ring-2 focus:ring-brass/30 focus:border-brass bg-paper text-ink transition-all duration-300";
 
   return (
     <div>
-      <label htmlFor={inputId} className="block text-sm font-medium text-ink mb-2">
+      <label htmlFor={inputId} className="ammar-dev-field__label">
         {label}
-        {required && <span className="text-brass ml-1">*</span>}
+        {required && <span className="ammar-dev-field__required">*</span>}
       </label>
       {rows ? (
         <textarea
@@ -34,7 +32,7 @@ const InputField = ({ label, type = "text", placeholder, rows, value, onChange, 
           value={value}
           onChange={onChange}
           required={required}
-          className={`${baseClass} resize-none`}
+          className="ammar-dev-field__textarea"
         />
       ) : (
         <input
@@ -44,7 +42,7 @@ const InputField = ({ label, type = "text", placeholder, rows, value, onChange, 
           value={value}
           onChange={onChange}
           required={required}
-          className={baseClass}
+          className="ammar-dev-field__input"
         />
       )}
     </div>
@@ -83,8 +81,8 @@ const Contact = () => {
         structuredData={faqSchema}
       />
 
-      <section className="pt-40 pb-20 lg:pt-48 lg:pb-24">
-        <div className="container-page">
+      <section className="ammar-dev-page-hero">
+        <div className="ammar-dev-container">
           <Reveal>
             <SectionHeading
               kicker="Let's talk"
@@ -93,77 +91,72 @@ const Contact = () => {
             />
           </Reveal>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-14">
+          <div className="ammar-dev-contact-grid">
             <Reveal>
-              <h2 className="text-2xl lg:text-3xl font-display font-medium mb-6 text-ink">
-                Let's talk about your project
-              </h2>
-              <p className="text-lg text-stone mb-10 leading-relaxed">
+              <h2 className="ammar-dev-contact-info__title">Let's talk about your project</h2>
+              <p className="ammar-dev-contact-info__desc">
                 I'm always up for new projects and collaborations. Whether you have a clear brief
                 or just a rough idea, feel free to reach out.
               </p>
 
-              <div className="space-y-6 mb-10">
+              <div className="ammar-dev-contact-methods">
                 {contactMethods.map((method) => (
-                  <div key={method.title} className="flex items-start gap-4">
-                    <div className="w-12 h-12 bg-panel rounded-full flex items-center justify-center flex-shrink-0">
-                      <i className={`${method.icon} text-brass text-xl`} aria-hidden="true"></i>
+                  <div key={method.title} className="ammar-dev-contact-method">
+                    <div className="ammar-dev-contact-method__icon">
+                      <i className={method.icon} aria-hidden="true"></i>
                     </div>
-                    <div className="flex-1">
-                      <div className="font-medium text-ink">{method.title}</div>
+                    <div className="ammar-dev-contact-method__body">
+                      <div className="ammar-dev-contact-method__title">{method.title}</div>
                       {method.link ? (
-                        <a
-                          href={method.link}
-                          className="text-stone hover:text-brass transition-colors duration-300 block"
-                        >
+                        <a href={method.link} className="ammar-dev-contact-method__value">
                           {method.value}
                         </a>
                       ) : (
-                        <div className="text-stone">{method.value}</div>
+                        <div className="ammar-dev-contact-method__value">{method.value}</div>
                       )}
-                      <p className="text-sm text-stone/70 mt-1">{method.description}</p>
+                      <p className="ammar-dev-contact-method__desc">{method.description}</p>
                     </div>
                   </div>
                 ))}
               </div>
 
               <div>
-                <h3 className="text-lg font-display font-medium text-ink mb-4">Connect with me</h3>
+                <h3 className="ammar-dev-contact-connect__title">Connect with me</h3>
                 <SocialRow />
               </div>
 
-              <div className="mt-10 bg-ink rounded-lg p-8">
-                <i className="ri-information-line text-2xl mb-4 block text-brass-soft" aria-hidden="true"></i>
-                <h3 className="text-xl font-display font-medium mb-2 text-paper">Quick response</h3>
-                <p className="text-paper/65 leading-relaxed">
+              <div className="ammar-dev-contact-note">
+                <i className="ri-information-line ammar-dev-contact-note__icon" aria-hidden="true"></i>
+                <h3 className="ammar-dev-contact-note__title">Quick response</h3>
+                <p className="ammar-dev-contact-note__desc">
                   I typically respond within 24 hours. Mention it in your message if something's
                   urgent.
                 </p>
               </div>
             </Reveal>
 
-            <Reveal className="bg-panel p-8 lg:p-10 rounded-lg border border-line h-fit">
-              <h3 className="text-2xl font-display font-medium mb-6 text-ink">Send me a message</h3>
+            <Reveal className="ammar-dev-contact-form-card">
+              <h3 className="ammar-dev-contact-form-card__title">Send me a message</h3>
 
               {submitStatus === "success" && (
-                <div className="mb-6 p-4 bg-ink/5 border border-ink/10 rounded-md flex items-center gap-3">
-                  <i className="ri-checkbox-circle-line text-brass text-2xl" aria-hidden="true"></i>
+                <div className="ammar-dev-form-alert ammar-dev-form-alert--success">
+                  <i className="ri-checkbox-circle-line" aria-hidden="true"></i>
                   <div>
-                    <p className="text-ink font-medium">Opening your email client</p>
-                    <p className="text-stone text-sm">Send the message and I'll reply within a day.</p>
+                    <p>Opening your email client</p>
+                    <p>Send the message and I'll reply within a day.</p>
                   </div>
                 </div>
               )}
 
               {submitStatus === "error" && (
-                <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-md flex items-center gap-3">
-                  <i className="ri-error-warning-line text-red-600 text-2xl" aria-hidden="true"></i>
-                  <p className="text-red-700 font-medium">Please fill in all required fields.</p>
+                <div className="ammar-dev-form-alert ammar-dev-form-alert--error">
+                  <i className="ri-error-warning-line" aria-hidden="true"></i>
+                  <p>Please fill in all required fields.</p>
                 </div>
               )}
 
-              <form onSubmit={handleSubmit} className="space-y-6" noValidate>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <form onSubmit={handleSubmit} className="ammar-dev-form" noValidate>
+                <div className="ammar-dev-form-row">
                   <InputField
                     label="Full Name"
                     placeholder="John Doe"
@@ -195,12 +188,12 @@ const Contact = () => {
                   onChange={handleChange("message")}
                   required
                 />
-                <Button type="submit" className="w-full justify-center" icon="ri-send-plane-line">
+                <Button type="submit" className="ammar-dev-btn--full" icon="ri-send-plane-line">
                   Send Message
                 </Button>
               </form>
 
-              <p className="mt-6 text-sm text-stone/70 text-center">
+              <p className="ammar-dev-form-note">
                 Submitting opens your email client with the message ready to send.
               </p>
             </Reveal>
@@ -208,8 +201,8 @@ const Contact = () => {
         </div>
       </section>
 
-      <section className="py-24 lg:py-32 bg-panel">
-        <div className="container-page">
+      <section className="ammar-dev-section ammar-dev-section--panel">
+        <div className="ammar-dev-container">
           <Reveal>
             <SectionHeading
               kicker="FAQ"
@@ -218,14 +211,11 @@ const Contact = () => {
             />
           </Reveal>
 
-          <Reveal stagger className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl">
+          <Reveal stagger className="ammar-dev-faq-grid">
             {faqs.map((faq) => (
-              <div
-                key={faq.question}
-                className="bg-paper rounded-lg p-6 border border-line transition-colors duration-300 hover:border-brass"
-              >
-                <h3 className="text-lg font-display font-medium text-ink mb-2">{faq.question}</h3>
-                <p className="text-stone leading-relaxed text-[15px]">{faq.answer}</p>
+              <div key={faq.question} className="ammar-dev-faq-card">
+                <h3 className="ammar-dev-faq-card__question">{faq.question}</h3>
+                <p className="ammar-dev-faq-card__answer">{faq.answer}</p>
               </div>
             ))}
           </Reveal>

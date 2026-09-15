@@ -358,7 +358,7 @@ export const categories = ["All", "Custom Coded", "WordPress", "Squarespace"];
 
 // Maps each project category to a palette accent used for chips/badges.
 export const categoryAccent = {
-  "Custom Coded": "bg-ink text-paper",
-  WordPress: "bg-brass text-paper",
-  Squarespace: "bg-stone text-paper",
+  "Custom Coded": "ammar-dev-badge--custom-coded",
+  WordPress: "ammar-dev-badge--wordpress",
+  Squarespace: "ammar-dev-badge--squarespace",
 };

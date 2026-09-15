@@ -23,7 +23,12 @@ A React app with real client-side routing (React Router), covering:
 ## Tech Stack
 
 - **React 19** + **React Router 7**: UI and client-side routing
-- **Tailwind CSS v4**: utility-first styling via `@theme` design tokens in `src/index.css`
+- **Plain CSS**: no CSS framework. One stylesheet (`src/index.css`) with CSS custom properties for
+  design tokens and semantic, BEM-style classes for every component. Every class, id, and custom
+  property in the project is namespaced with an `ammar-dev-` prefix (e.g. `.ammar-dev-btn`,
+  `--ammar-dev-color-ink`) so this CSS can never collide with another stylesheet if embedded
+  elsewhere. Breakpoints mirror what the design used previously: 640px, 768px, and 1024px,
+  mobile-first with `min-width` media queries.
 - **Anime.js**: scroll reveals, hover states, page transitions (see `src/lib/animate.js`)
 - **Remix Icon**: icon set
 - **Vite**: build tooling

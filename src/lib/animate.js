@@ -1,14 +1,17 @@
 import { useEffect, useRef } from "react";
 import anime from "animejs";
 
-/** True if the user has requested reduced motion at the OS level. */
 export const prefersReducedMotion = () =>
   typeof window !== "undefined" &&
   window.matchMedia &&
   window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 const forceVisible = (targets) => {
-  const els = Array.isArray(targets) ? targets : targets instanceof NodeList ? Array.from(targets) : [targets];
+  const els = Array.isArray(targets)
+    ? targets
+    : targets instanceof NodeList
+      ? Array.from(targets)
+      : [targets];
   els.forEach((el) => {
     if (!el) return;
     el.style.opacity = "1";
@@ -16,13 +19,10 @@ const forceVisible = (targets) => {
   });
 };
 
-/**
- * Runs an anime.js entrance safely: hides the target only inside the same
- * synchronous try block that also starts the tween toward visible, so a
- * failure anywhere (import, bundling, browser quirk) can never leave
- * content stuck invisible. Falls back to forcing full opacity immediately.
- */
-const safeReveal = (targets, { translateY = 22, duration = 900, delay = 0 } = {}) => {
+const safeReveal = (
+  targets,
+  { translateY = 22, duration = 900, delay = 0 } = {},
+) => {
   try {
     anime.set(targets, { opacity: 0, translateY });
     anime({
@@ -39,18 +39,11 @@ const safeReveal = (targets, { translateY = 22, duration = 900, delay = 0 } = {}
   }
 };
 
-/**
- * useReveal - reveals an element (or its direct children) with a single
- * restrained anime.js entrance when it scrolls into view. Content is
- * visible by default; it is only hidden for the brief, guaranteed window
- * right before animating in, so nothing can get stuck blank.
- *
- * @param {Object} options
- * @param {boolean} options.stagger - animate direct children with a stagger
- * @param {number} options.delay - extra delay in ms before the animation starts
- * @param {("up"|"none")} options.direction - translateY entrance or fade only
- */
-export function useReveal({ stagger = false, delay = 0, direction = "up" } = {}) {
+export function useReveal({
+  stagger = false,
+  delay = 0,
+  direction = "up",
+} = {}) {
   const ref = useRef(null);
 
   useEffect(() => {
@@ -76,13 +69,10 @@ export function useReveal({ stagger = false, delay = 0, direction = "up" } = {})
           }
         });
       },
-      { threshold: 0.15, rootMargin: "0px 0px -8% 0px" }
+      { threshold: 0.15, rootMargin: "0px 0px -8% 0px" },
     );
 
     observer.observe(node);
-
-    // Safety net: if the element never intersects (edge-case viewport math)
-    // or the observer never fires, guarantee visibility after a short wait.
     const fallback = setTimeout(() => forceVisible(targets), 2500);
 
     return () => {
@@ -94,11 +84,6 @@ export function useReveal({ stagger = false, delay = 0, direction = "up" } = {})
   return ref;
 }
 
-/**
- * useHeroEntrance - the single orchestrated page-load animation, used once
- * per page on the hero. Same guaranteed-visible-on-failure guardrails as
- * useReveal above.
- */
 export function useHeroEntrance(selector) {
   useEffect(() => {
     if (prefersReducedMotion()) return undefined;
@@ -117,7 +102,6 @@ export function useHeroEntrance(selector) {
   }, [selector]);
 }
 
-/** Animated count-up used for stat numbers. Runs once, on scroll into view. */
 export function useCountUp(targetValue, { duration = 1400, suffix = "" } = {}) {
   const ref = useRef(null);
 
@@ -153,7 +137,7 @@ export function useCountUp(targetValue, { duration = 1400, suffix = "" } = {}) {
           }
         });
       },
-      { threshold: 0.5 }
+      { threshold: 0.5 },
     );
 
     observer.observe(node);
@@ -170,23 +154,31 @@ export function useCountUp(targetValue, { duration = 1400, suffix = "" } = {}) {
   return ref;
 }
 
-/** Shared hover micro-interaction: a slight lift with a quick, consistent easing. */
 export function hoverLift(node, { scale = 1.015, translateY = -3 } = {}) {
-  if (!node || prefersReducedMotion()) return { onMouseEnter: () => {}, onMouseLeave: () => {} };
+  if (!node || prefersReducedMotion())
+    return { onMouseEnter: () => {}, onMouseLeave: () => {} };
 
   const enter = () => {
     try {
-      anime({ targets: node, scale, translateY, duration: 320, easing: "easeOutQuart" });
-    } catch {
-      /* no-op: hover styling is purely decorative */
-    }
+      anime({
+        targets: node,
+        scale,
+        translateY,
+        duration: 320,
+        easing: "easeOutQuart",
+      });
+    } catch {}
   };
   const leave = () => {
     try {
-      anime({ targets: node, scale: 1, translateY: 0, duration: 320, easing: "easeOutQuart" });
-    } catch {
-      /* no-op */
-    }
+      anime({
+        targets: node,
+        scale: 1,
+        translateY: 0,
+        duration: 320,
+        easing: "easeOutQuart",
+      });
+    } catch {}
   };
 
   return { onMouseEnter: enter, onMouseLeave: leave };

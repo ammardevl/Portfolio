@@ -1,15 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap");
 
-/* =========================================================================
-   Muhammad Ammar Portfolio, plain CSS design system (no Tailwind).
-   Every class, id, and custom property in this project is namespaced with
-   the "ammar-dev" prefix to avoid collisions if this stylesheet is ever
-   embedded alongside other CSS.
-   ========================================================================= */
-
-/* -------------------------------------------------------------------------
-   1. Design tokens
-   ------------------------------------------------------------------------- */
 :root {
   --ammar-dev-color-ink: #131316;
   --ammar-dev-color-ink-soft: #2a2b30;
@@ -39,7 +29,8 @@
   --ammar-dev-font-body: "Inter", sans-serif;
   --ammar-dev-font-mono: "IBM Plex Mono", monospace;
 
-  --ammar-dev-shadow-soft: 0 1px 2px rgba(19, 19, 22, 0.04), 0 8px 24px rgba(19, 19, 22, 0.06);
+  --ammar-dev-shadow-soft:
+    0 1px 2px rgba(19, 19, 22, 0.04), 0 8px 24px rgba(19, 19, 22, 0.06);
   --ammar-dev-radius-md: 8px;
   --ammar-dev-radius-lg: 12px;
   --ammar-dev-radius-full: 9999px;
@@ -48,13 +39,12 @@
   --ammar-dev-container-max: 1360px;
 }
 
-/* -------------------------------------------------------------------------
-   2. Reset & base
-   ------------------------------------------------------------------------- */
 *,
 *::before,
 *::after {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 html {
@@ -86,11 +76,21 @@ body {
   line-height: 1.5;
 }
 
-h1, h2, h3, h4, h5, h6, p, ul, ol, figure {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol,
+figure {
   margin: 0;
 }
 
-ul, ol {
+ul,
+ol {
   padding: 0;
   list-style: none;
 }
@@ -123,7 +123,6 @@ i {
   font-style: normal;
 }
 
-/* Visible keyboard focus everywhere, accessibility floor */
 a:focus-visible,
 button:focus-visible,
 input:focus-visible,
@@ -139,9 +138,6 @@ textarea:focus-visible,
   color: var(--ammar-dev-color-paper);
 }
 
-/* -------------------------------------------------------------------------
-   3. Type & layout helpers
-   ------------------------------------------------------------------------- */
 .ammar-dev-font-display {
   font-family: var(--ammar-dev-font-display);
   font-optical-sizing: auto;
@@ -173,7 +169,6 @@ textarea:focus-visible,
   }
 }
 
-/* Skip link for keyboard/screen-reader users */
 .ammar-dev-skip-link {
   position: absolute;
   left: -9999px;
@@ -191,7 +186,6 @@ textarea:focus-visible,
   left: 0;
 }
 
-/* App shell */
 .ammar-dev-app {
   display: flex;
   flex-direction: column;
@@ -202,7 +196,6 @@ textarea:focus-visible,
   flex: 1 1 auto;
 }
 
-/* Generic eyebrow label used above page/section titles */
 .ammar-dev-eyebrow {
   font-family: var(--ammar-dev-font-mono);
   font-size: 0.875rem;
@@ -214,7 +207,6 @@ textarea:focus-visible,
   color: var(--ammar-dev-color-brass-soft);
 }
 
-/* Generic page hero title/lede, used on Services/Projects/NotFound */
 .ammar-dev-heading-xl {
   font-family: var(--ammar-dev-font-display);
   font-optical-sizing: auto;
@@ -238,7 +230,6 @@ textarea:focus-visible,
   line-height: 1.7;
 }
 
-/* Generic section rhythm */
 .ammar-dev-section {
   padding-top: 6rem;
   padding-bottom: 6rem;
@@ -267,7 +258,6 @@ textarea:focus-visible,
   background-color: var(--ammar-dev-color-ink);
 }
 
-/* Page hero (top padding accounts for the fixed header) */
 .ammar-dev-page-hero {
   padding-top: 10rem;
   padding-bottom: 5rem;
@@ -294,9 +284,6 @@ textarea:focus-visible,
   max-width: 48rem;
 }
 
-/* -------------------------------------------------------------------------
-   4. Reusable grids
-   ------------------------------------------------------------------------- */
 .ammar-dev-grid-cards {
   display: grid;
   grid-template-columns: repeat(1, minmax(0, 1fr));
@@ -367,9 +354,6 @@ textarea:focus-visible,
   }
 }
 
-/* -------------------------------------------------------------------------
-   5. Buttons
-   ------------------------------------------------------------------------- */
 .ammar-dev-btn {
   display: inline-flex;
   align-items: center;
@@ -441,9 +425,6 @@ textarea:focus-visible,
   font-weight: 500;
 }
 
-/* -------------------------------------------------------------------------
-   6. Section heading component
-   ------------------------------------------------------------------------- */
 .ammar-dev-section-heading {
   max-width: 42rem;
   margin-bottom: 3.5rem;
@@ -490,9 +471,6 @@ textarea:focus-visible,
   color: var(--ammar-dev-color-white-70);
 }
 
-/* -------------------------------------------------------------------------
-   7. Icon tile / tech chip / social row
-   ------------------------------------------------------------------------- */
 .ammar-dev-icon-tile {
   width: 3rem;
   height: 3rem;
@@ -561,9 +539,6 @@ textarea:focus-visible,
   font-size: 1rem;
 }
 
-/* -------------------------------------------------------------------------
-   8. CTA section
-   ------------------------------------------------------------------------- */
 .ammar-dev-cta {
   padding-top: 6rem;
   padding-bottom: 6rem;
@@ -607,9 +582,6 @@ textarea:focus-visible,
   line-height: 1.7;
 }
 
-/* -------------------------------------------------------------------------
-   9. Header
-   ------------------------------------------------------------------------- */
 .ammar-dev-header {
   position: fixed;
   top: 0;
@@ -716,7 +688,6 @@ textarea:focus-visible,
   font-size: 1.5rem;
 }
 
-/* Mobile menu overlay */
 .ammar-dev-mobile-menu {
   position: fixed;
   inset: 0;
@@ -808,9 +779,6 @@ textarea:focus-visible,
   color: var(--ammar-dev-color-ink);
 }
 
-/* -------------------------------------------------------------------------
-   10. Footer
-   ------------------------------------------------------------------------- */
 .ammar-dev-footer {
   background-color: var(--ammar-dev-color-ink);
   color: var(--ammar-dev-color-paper);
@@ -956,9 +924,6 @@ textarea:focus-visible,
   font-size: 0.875rem;
 }
 
-/* -------------------------------------------------------------------------
-   11. Back to top
-   ------------------------------------------------------------------------- */
 .ammar-dev-back-to-top {
   position: fixed;
   bottom: 1.75rem;
@@ -988,16 +953,15 @@ textarea:focus-visible,
   pointer-events: none;
 }
 
-/* -------------------------------------------------------------------------
-   12. Project card
-   ------------------------------------------------------------------------- */
 .ammar-dev-project-card {
   display: block;
   background-color: var(--ammar-dev-color-paper);
   border: 1px solid var(--ammar-dev-color-line);
   border-radius: var(--ammar-dev-radius-lg);
   overflow: hidden;
-  transition: border-color 400ms var(--ammar-dev-ease), box-shadow 400ms var(--ammar-dev-ease);
+  transition:
+    border-color 400ms var(--ammar-dev-ease),
+    box-shadow 400ms var(--ammar-dev-ease);
 }
 
 .ammar-dev-project-card:hover {
@@ -1104,9 +1068,6 @@ textarea:focus-visible,
   border-radius: 4px;
 }
 
-/* -------------------------------------------------------------------------
-   13. Home page
-   ------------------------------------------------------------------------- */
 .ammar-dev-hero {
   padding-top: 10rem;
   padding-bottom: 5rem;
@@ -1245,9 +1206,6 @@ textarea:focus-visible,
   text-align: center;
 }
 
-/* -------------------------------------------------------------------------
-   14. Services page
-   ------------------------------------------------------------------------- */
 .ammar-dev-service-card {
   border: 1px solid var(--ammar-dev-color-line);
   border-radius: var(--ammar-dev-radius-lg);
@@ -1323,9 +1281,6 @@ textarea:focus-visible,
   font-size: 0.9375rem;
 }
 
-/* -------------------------------------------------------------------------
-   15. Projects page (filter bar)
-   ------------------------------------------------------------------------- */
 .ammar-dev-filter-bar {
   display: flex;
   flex-wrap: wrap;
@@ -1362,9 +1317,6 @@ textarea:focus-visible,
   padding-bottom: 4rem;
 }
 
-/* -------------------------------------------------------------------------
-   16. Project detail page
-   ------------------------------------------------------------------------- */
 .ammar-dev-detail-hero {
   background-color: var(--ammar-dev-color-panel);
   border-bottom: 1px solid var(--ammar-dev-color-line);
@@ -1703,9 +1655,6 @@ textarea:focus-visible,
   color: var(--ammar-dev-color-brass);
 }
 
-/* -------------------------------------------------------------------------
-   17. About page
-   ------------------------------------------------------------------------- */
 .ammar-dev-about-hero__grid {
   display: grid;
   grid-template-columns: repeat(1, minmax(0, 1fr));
@@ -2054,9 +2003,6 @@ textarea:focus-visible,
   font-size: 0.9375rem;
 }
 
-/* -------------------------------------------------------------------------
-   18. Contact page
-   ------------------------------------------------------------------------- */
 .ammar-dev-contact-grid {
   display: grid;
   grid-template-columns: repeat(1, minmax(0, 1fr));
@@ -2349,9 +2295,6 @@ a.ammar-dev-contact-method__value:hover {
   font-size: 0.9375rem;
 }
 
-/* -------------------------------------------------------------------------
-   19. 404 page
-   ------------------------------------------------------------------------- */
 .ammar-dev-notfound {
   min-height: 80vh;
   display: flex;

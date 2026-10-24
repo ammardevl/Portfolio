@@ -9,13 +9,6 @@ export const contactMethods = [
     description: "Best way to reach me. I check it daily.",
   },
   {
-    icon: "ri-whatsapp-line",
-    title: "WhatsApp",
-    value: "Available on request",
-    link: null,
-    description: "I'll share this once we're talking specifics.",
-  },
-  {
     icon: "ri-time-line",
     title: "Response Time",
     value: "Within 24 hours",

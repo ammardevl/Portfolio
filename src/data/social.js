@@ -10,16 +10,6 @@ export const socialLinks = [
     icon: "ri-github-fill",
     platform: "GitHub",
   },
-  {
-    href: "https://www.instagram.com/y.ammar_06/",
-    icon: "ri-instagram-line",
-    platform: "Instagram",
-  },
-  {
-    href: "https://www.facebook.com/profile.php?id=100007319979278",
-    icon: "ri-facebook-fill",
-    platform: "Facebook",
-  },
 ];
 
 export const contactInfo = {
